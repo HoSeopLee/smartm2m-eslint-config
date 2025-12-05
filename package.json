@@ -1,0 +1,60 @@
+{
+  "name": "m2m-eslint-config",
+  "version": "1.0.5",
+  "description": "Shared ESLint configuration for React and Next.js projects",
+  "main": "index.js",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./next": "./next.js",
+    "./react": "./react.js",
+    "./ts": "./configs/ts.js",
+    "./a11y": "./configs/a11y.js",
+    "./import": "./configs/import.js",
+    "./prettier": "./configs/prettier.js"
+  },
+  "keywords": [
+    "eslint",
+    "eslintconfig",
+    "react",
+    "nextjs",
+    "next",
+    "typescript",
+    "prettier"
+  ],
+  "author": "HoSeopLee",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HoSeopLee/m2m-eslint-config.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HoSeopLee/m2m-eslint-config/issues"
+  },
+  "homepage": "https://github.com/HoSeopLee/m2m-eslint-config#readme",
+  "peerDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@next/eslint-plugin-next": "^14.0.0 || ^15.0.0 || ^16.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-no-relative-import-paths": "^1.5.0",
+    "eslint-plugin-prettier": "^5.1.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "globals": "^15.0.0",
+    "typescript-eslint": "^8.0.0"
+  },
+  "devDependencies": {},
+  "files": [
+    "index.js",
+    "react.js",
+    "next.js",
+    "configs/**/*.js",
+    "README.md"
+  ]
+}
+

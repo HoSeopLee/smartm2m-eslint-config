@@ -93,7 +93,7 @@ echo -e "${BLUE}💡 참고:${NC}"
 echo "이 스크립트는 기본적인 설정 검증만 수행합니다."
 echo "실제 프로젝트에서 테스트하려면:"
 echo "  1. npm link (이미 완료됨)"
-echo "  2. 테스트 프로젝트에서: npm link m2m-eslint-config"
+echo "  2. 테스트 프로젝트에서: npm link smartm2m-eslint-config"
 echo "  3. eslint.config.js에서 설정 사용"
 echo ""
 if [ $REACT_TEST -eq 0 ] && [ $NEXT_TEST -eq 0 ]; then

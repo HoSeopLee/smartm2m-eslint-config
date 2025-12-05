@@ -1,5 +1,5 @@
 {
-  "name": "eslint-config-m2m",
+  "name": "m2m-eslint-config",
   "version": "1.0.0",
   "description": "Shared ESLint configuration for React and Next.js projects",
   "main": "index.js",
@@ -26,12 +26,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HoSeopLee/eslint-config-m2m.git"
+    "url": "git+https://github.com/HoSeopLee/m2m-eslint-config.git"
   },
   "bugs": {
-    "url": "https://github.com/HoSeopLee/eslint-config-m2m/issues"
+    "url": "https://github.com/HoSeopLee/m2m-eslint-config/issues"
   },
-  "homepage": "https://github.com/HoSeopLee/eslint-config-m2m#readme",
+  "homepage": "https://github.com/HoSeopLee/m2m-eslint-config#readme",
   "peerDependencies": {
     "@eslint/js": "^9.0.0",
     "@next/eslint-plugin-next": "^14.0.0 || ^15.0.0 || ^16.0.0",

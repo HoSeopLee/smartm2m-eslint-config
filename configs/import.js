@@ -28,7 +28,21 @@ export default {
 		'import/no-cycle': 'off',
 
 		// simple-import-sort를 사용하여 import 정렬 관리
-		'simple-import-sort/imports': 'error',
+		// 기존 import/order와 동일한 순서 유지: React/Next → @/ → 상대경로
+		'simple-import-sort/imports': [
+			'error',
+			{
+				groups: [
+					['^node:'], // Node.js builtins (맨 위)
+					['^react', '^next'], // React, Next.js (기존 pathGroups 순서 유지)
+					['^@/'], // Internal alias (@/components 등)
+					['^@?\\w'], // 기타 external packages
+					['^'], // Absolute imports (catch-all)
+					['^\\.'], // Relative imports (./, ../)
+					['^\\u0000'], // Side effect imports (맨 밑)
+				],
+			},
+		],
 		'simple-import-sort/exports': 'error',
 
 		// 중복 import 방지

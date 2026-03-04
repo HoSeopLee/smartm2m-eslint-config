@@ -33,13 +33,29 @@ export default {
 			'error',
 			{
 				groups: [
-					['^node:'], // Node.js builtins (맨 위)
-					['^react', '^next'], // React, Next.js (기존 pathGroups 순서 유지)
-					['^@/'], // Internal alias (@/components 등)
-					['^@?\\w'], // 기타 external packages
-					['^'], // Absolute imports (catch-all)
-					['^\\.'], // Relative imports (./, ../)
-					['^\\u0000'], // Side effect imports (맨 밑)
+					// 1. Side effect (맨 위) – import 'polyfill'; import 'react-hot-loader';
+					['^\\u0000(?!.*\\.css$)'],
+
+					// 2. Node builtins – import fs from 'node:fs'; import path from 'node:path';
+					['^node:'],
+
+					// 3. React / Next – import React from 'react'; import Link from 'next/link';
+					['^react', '^next'],
+
+					// 4. Internal alias – import { Button } from '@/components/Button';
+					['^@/'],
+
+					// 5. External packages – import { debounce } from 'lodash'; import clsx from 'clsx';
+					['^@?\\w'],
+
+					// 6. Absolute – 그 외 . 으로 시작하지 않는 경로
+					['^[^.]'],
+
+					// 7. Relative – import { Header } from './Header'; import { utils } from '../utils';
+					['^\\.'],
+
+					// 8. CSS side effect (맨 밑) – import './styles.css'; import '@/styles/global.css';
+					['^\\u0000.*\\.css'],
 				],
 			},
 		],

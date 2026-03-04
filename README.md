@@ -2,87 +2,40 @@
 
 SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 
+- React, Next.js, TypeScript, Prettier, 접근성(a11y) 규칙 포함
 - 📦 [npm 패키지](https://www.npmjs.com/package/smartm2m-eslint-config)
 - 🐙 [GitHub 저장소](https://github.com/HoSeopLee/smartm2m-eslint-config)
 
+> ⚠️ **ESLint 9 Flat Config 전용**  
+> 이 설정은 ESLint 9 Flat Config 형식을 사용하며, `.eslintrc`(레거시) 형식은 지원하지 않습니다.
+
+## Config Structure
+
+이 패키지는 모듈형 구조로 제공됩니다.
+
+| Config | 설명 |
+|--------|------|
+| `smartm2m-eslint-config` | 기본 (React 설정 re-export) |
+| `smartm2m-eslint-config/react` | React 프로젝트용 전체 설정 |
+| `smartm2m-eslint-config/next` | Next.js 프로젝트용 전체 설정 |
+| `smartm2m-eslint-config/ts` | TypeScript 규칙만 |
+| `smartm2m-eslint-config/import` | Import 규칙만 |
+| `smartm2m-eslint-config/a11y` | 접근성 규칙만 |
+| `smartm2m-eslint-config/prettier` | Prettier 통합만 |
+
 ## 설치
 
-### npm을 사용하는 경우
-
 ```bash
-# 1단계: 라이브러리 설치
-npm install --save-dev smartm2m-eslint-config
+# 1단계: 라이브러리 설치 (npm / yarn / pnpm)
+npm install -D smartm2m-eslint-config
+# yarn add -D smartm2m-eslint-config
+# pnpm add -D smartm2m-eslint-config
 
-# 2단계: 필수 의존성 설치
-npm install --save-dev \
-  @eslint/js \
-  eslint \
-  eslint-config-prettier \
-  eslint-plugin-import \
-  eslint-plugin-jsx-a11y \
-  eslint-plugin-no-relative-import-paths \
-  eslint-plugin-prettier \
-  eslint-plugin-react \
-  eslint-plugin-react-hooks \
-  eslint-plugin-react-refresh \
-  eslint-plugin-unused-imports \
-  globals \
-  typescript-eslint
+# 2단계: 필수 의존성 설치 (yarn/pnpm 사용 시 npm을 yarn 또는 pnpm으로 교체)
+npm install -D @eslint/js eslint eslint-config-prettier eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-no-relative-import-paths eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-simple-import-sort eslint-plugin-unused-imports globals typescript-eslint
 
 # Next.js 프로젝트인 경우 추가 설치
-npm install --save-dev @next/eslint-plugin-next
-```
-
-### yarn을 사용하는 경우
-
-```bash
-# 1단계: 라이브러리 설치
-yarn add -D smartm2m-eslint-config
-
-# 2단계: 필수 의존성 설치
-yarn add -D \
-  @eslint/js \
-  eslint \
-  eslint-config-prettier \
-  eslint-plugin-import \
-  eslint-plugin-jsx-a11y \
-  eslint-plugin-no-relative-import-paths \
-  eslint-plugin-prettier \
-  eslint-plugin-react \
-  eslint-plugin-react-hooks \
-  eslint-plugin-react-refresh \
-  eslint-plugin-unused-imports \
-  globals \
-  typescript-eslint
-
-# Next.js 프로젝트인 경우 추가 설치
-yarn add -D @next/eslint-plugin-next
-```
-
-### pnpm을 사용하는 경우
-
-```bash
-# 1단계: 라이브러리 설치
-pnpm add -D smartm2m-eslint-config
-
-# 2단계: 필수 의존성 설치
-pnpm add -D \
-  @eslint/js \
-  eslint \
-  eslint-config-prettier \
-  eslint-plugin-import \
-  eslint-plugin-jsx-a11y \
-  eslint-plugin-no-relative-import-paths \
-  eslint-plugin-prettier \
-  eslint-plugin-react \
-  eslint-plugin-react-hooks \
-  eslint-plugin-react-refresh \
-  eslint-plugin-unused-imports \
-  globals \
-  typescript-eslint
-
-# Next.js 프로젝트인 경우 추가 설치
-pnpm add -D @next/eslint-plugin-next
+npm install -D @next/eslint-plugin-next
 ```
 
 > **참고**: 이 패키지는 `peerDependencies`를 사용하므로, 필수 의존성을 별도로 설치해야 합니다.
@@ -161,12 +114,13 @@ export default [
 
 ### 프로젝트별 설정 추가
 
-#### React (Vite) 프로젝트
+기본 설정은 `project: true`로 tsconfig를 자동 탐지합니다. 프로젝트 루트에 `tsconfig.json`(또는 `tsconfig.app.json`)이 있으면 별도 설정 없이 동작합니다.
 
-Vite 프로젝트의 경우 `tsconfig.app.json`을 사용합니다:
+Tailwind CSS를 사용하는 경우 `better-tailwindcss` 설정을 추가할 수 있습니다:
 
 ```javascript
-import eslintConfig from 'smartm2m-eslint-config';
+import reactConfig from 'smartm2m-eslint-config/react';
+// 또는 Next.js: import nextConfig from 'smartm2m-eslint-config/next';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -174,7 +128,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default [
-  ...eslintConfig,
+  ...reactConfig, // 또는 ...nextConfig
   {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -187,7 +141,7 @@ export default [
     },
     settings: {
       react: {
-        version: '19.2.0', // React 버전 명시
+        version: 'detect', // React 버전 명시
       },
       // 프로젝트별 설정 (예: tailwind 경로)
       'better-tailwindcss': {
@@ -224,7 +178,7 @@ export default [
     },
     settings: {
       react: {
-        version: '19.2.0', // React 버전 명시
+        version: 'detect', // React 버전 명시
       },
       // 프로젝트별 설정 (예: tailwind 경로)
       'better-tailwindcss': {
@@ -234,6 +188,7 @@ export default [
   },
 ];
 ```
+> **참고**: `no-relative-import-paths` 규칙은 `rootDir: 'src'`, `prefix: '@'`를 기본값으로 사용합니다. 다른 구조를 사용하는 프로젝트는 해당 규칙을 오버라이드하세요.
 
 ## 포함된 설정
 
@@ -259,10 +214,10 @@ export default [
 - 비대화형 요소에 tabindex 사용 금지
 
 ### Import
-- Import 순서 자동 정렬 (React 우선, 알파벳 순)
+- Import 순서 자동 정렬 (`eslint-plugin-simple-import-sort` 사용)
 - 미사용 import 자동 정리
 - 중복 import 방지
-- 절대 경로 사용 권장 (상대 경로 경고)
+- 절대 경로 사용 권장 (`@/` prefix, `src` 기준, 상대 경로 경고)
 
 ### Prettier
 - Prettier 통합 및 충돌 방지
@@ -286,7 +241,6 @@ export default [
 - `<img>` 태그 대신 Next.js `Image` 컴포넌트 사용 권장
 - Document Head 관련 규칙 (next/head 사용 권장)
 - Next.js API 이름 오타 검사
-- Import 순서에 Next.js 패턴 포함 (`next/*` 우선순위)
 - Next.js 빌드 파일 무시 (`.next/`, `out/`, `next-env.d.ts` 등)
 
 > **참고**: Next.js 설정은 React 설정의 모든 기능을 포함하며, Next.js 특화 규칙이 추가로 적용됩니다.

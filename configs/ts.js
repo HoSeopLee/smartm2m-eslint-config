@@ -3,7 +3,7 @@ export default {
 	languageOptions: {
 		parserOptions: {
 			sourceType: 'module',
-			project: ['./tsconfig.app.json'],
+			project: true,
 		},
 	},
 	rules: {

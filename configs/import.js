@@ -1,19 +1,20 @@
 import importPlugin from 'eslint-plugin-import';
 import unusedImports from 'eslint-plugin-unused-imports';
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
-
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 export default {
 	plugins: {
 		import: importPlugin,
 		'unused-imports': unusedImports,
 		'no-relative-import-paths': noRelativeImportPaths,
+		'simple-import-sort': simpleImportSort,
 	},
 	settings: {
 		'import/resolver': {
 			typescript: {
 				alwaysTryTypes: true,
-				project: './tsconfig.json',
+				project: true,
 			},
 			node: true,
 		},
@@ -25,36 +26,14 @@ export default {
 		'import/extensions': 'off',
 		'import/prefer-default-export': 'off',
 		'import/no-cycle': 'off',
-		'import/order': [
-			'error',
-			{
-				groups: [['builtin', 'external', 'internal']],
-				'newlines-between': 'always',
-				alphabetize: { order: 'asc', caseInsensitive: true },
-				warnOnUnassignedImports: false,
-				pathGroups: [
-					{
-						pattern: 'react*',
-						group: 'external',
-						position: 'before',
-					},
-					{
-						pattern: '@/**',
-						group: 'internal',
-						position: 'after',
-					},
-					{
-						pattern: '(.|..)?/**',
-						group: 'internal',
-						position: 'after',
-					},
-				],
-				pathGroupsExcludedImportTypes: ['react'],
-			},
-		],
-		'import/newline-after-import': ['error', { count: 1 }],
+
+		// simple-import-sort를 사용하여 import 정렬 관리
+		'simple-import-sort/imports': 'error',
+		'simple-import-sort/exports': 'error',
+
 		// 중복 import 방지
 		'import/no-duplicates': 'error',
+
 		// 자기 자신 import 방지
 		'import/no-self-import': 'error',
 
@@ -87,4 +66,3 @@ export default {
 		],
 	},
 };
-

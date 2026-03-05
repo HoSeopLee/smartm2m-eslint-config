@@ -16,11 +16,15 @@ async function testConfigLoad() {
 		{ name: '기본 설정 (index.js)', file: 'index.js' },
 		{ name: 'React 설정 (react.js)', file: 'react.js' },
 		{ name: 'Next.js 설정 (next.js)', file: 'next.js' },
-		{ name: 'TypeScript 설정', file: 'configs/ts.js' },
-		{ name: 'Import 설정', file: 'configs/import.js' },
-		{ name: 'A11y 설정', file: 'configs/a11y.js' },
-		{ name: 'Prettier 설정', file: 'configs/prettier.js' },
-		{ name: 'React 설정 (configs)', file: 'configs/react.js' },
+		{ name: 'Preset base', file: 'presets/base.js' },
+		{ name: 'Preset react', file: 'presets/react.js' },
+		{ name: 'Preset next', file: 'presets/next.js' },
+		{ name: 'Preset full', file: 'presets/full.js' },
+		{ name: 'TypeScript 규칙', file: 'rules/typescript/ts.js' },
+		{ name: 'Import 규칙', file: 'rules/base/imports.js' },
+		{ name: 'A11y 규칙', file: 'rules/accessibility/a11y.js' },
+		{ name: 'Prettier 규칙', file: 'rules/formatting/prettier.js' },
+		{ name: 'React 규칙', file: 'rules/react/react.js' },
 	];
 
 	let allPassed = true;

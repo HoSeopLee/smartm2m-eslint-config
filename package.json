@@ -1,6 +1,6 @@
 {
   "name": "smartm2m-eslint-config",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Shared ESLint configuration for React and Next.js projects",
   "main": "index.js",
   "type": "module",
@@ -8,10 +8,14 @@
     ".": "./index.js",
     "./next": "./next.js",
     "./react": "./react.js",
-    "./ts": "./configs/ts.js",
-    "./a11y": "./configs/a11y.js",
-    "./import": "./configs/import.js",
-    "./prettier": "./configs/prettier.js"
+    "./ts": "./rules/typescript/ts.js",
+    "./a11y": "./rules/accessibility/a11y.js",
+    "./import": "./rules/base/imports.js",
+    "./prettier": "./rules/formatting/prettier.js",
+    "./presets/base": "./presets/base.js",
+    "./presets/react": "./presets/react.js",
+    "./presets/next": "./presets/next.js",
+    "./presets/full": "./presets/full.js"
   },
   "keywords": [
     "eslint",
@@ -60,7 +64,8 @@
     "index.js",
     "react.js",
     "next.js",
-    "configs/**/*.js",
+    "presets/**/*.js",
+    "rules/**/*.js",
     "README.md"
   ]
 }

@@ -1,16 +1,14 @@
 /**
- * React ESLint 설정 (기본)
- * 
- * 이 파일은 하위 호환성을 위해 react.js를 re-export합니다.
- * 새로운 프로젝트에서는 명시적으로 react.js 또는 next.js를 사용하는 것을 권장합니다.
- * 
+ * 기본 진입점: React 프리셋 re-export
+ * 확장 시 presets/base, presets/next, presets/full 또는 rules/* 조합 사용
+ *
  * @example
- * // React 프로젝트
+ * // React
  * import reactConfig from 'smartm2m-eslint-config/react';
- * 
- * // Next.js 프로젝트
+ * // Next
  * import nextConfig from 'smartm2m-eslint-config/next';
+ * // 프리셋 직접 사용
+ * import basePreset from 'smartm2m-eslint-config/presets/base';
+ * import fullPreset from 'smartm2m-eslint-config/presets/full';
  */
-import reactConfig from './react.js';
-
-export default reactConfig;
+export { default } from './react.js';

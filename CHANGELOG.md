@@ -5,7 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.2] - Unreleased
+## [1.0.3] - Unreleased
+
+> npm 배포 전, 추가 다듬기 후 체크리스트 확인하고 배포 예정.
+
+### Added
+
+- **Presets + Rules 구조**: 확장을 위한 디렉터리 구조 도입
+  - `presets/`: base, react, next, full (조합된 설정)
+  - `rules/`: base(javascript, imports, globals), typescript, react, next, accessibility, formatting (도메인별 규칙)
+  - 새 프리셋 추가 시 `rules/*`만 조합하면 됨
+- **rules 라인별 주석**: 각 규칙마다 "무엇인지 + (warn/error/off)" 주석 추가 (변경/검토용)
+
+### Changed
+
+- **Config 구조**: `configs/` 제거, `presets/`·`rules/`로 이전
+  - 기존 export 경로 유지: `./react`, `./next`, `./ts`, `./a11y`, `./import`, `./prettier` (하위 호환)
+
+---
+
+## [1.0.2] - 2025-03-05
 
 ### Changed
 

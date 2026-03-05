@@ -11,17 +11,30 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 
 ## Config Structure
 
-이 패키지는 모듈형 구조로 제공됩니다.
+이 패키지는 **presets**(조합된 설정)와 **rules**(도메인별 규칙)로 확장 가능한 구조입니다.
+
+### Presets (프리셋)
 
 | Config | 설명 |
 |--------|------|
-| `smartm2m-eslint-config` | 기본 (React 설정 re-export) |
+| `smartm2m-eslint-config` | 기본 (React preset re-export) |
 | `smartm2m-eslint-config/react` | React 프로젝트용 전체 설정 |
 | `smartm2m-eslint-config/next` | Next.js 프로젝트용 전체 설정 |
-| `smartm2m-eslint-config/ts` | TypeScript 규칙만 |
-| `smartm2m-eslint-config/import` | Import 규칙만 |
-| `smartm2m-eslint-config/a11y` | 접근성 규칙만 |
-| `smartm2m-eslint-config/prettier` | Prettier 통합만 |
+| `smartm2m-eslint-config/presets/base` | JS + import + prettier (React/TS 없음, 확장용) |
+| `smartm2m-eslint-config/presets/react` | React preset (react.js와 동일) |
+| `smartm2m-eslint-config/presets/next` | Next.js preset (next.js와 동일) |
+| `smartm2m-eslint-config/presets/full` | 전체 규칙 (현재는 next와 동일) |
+
+### Rules (규칙 모듈)
+
+| Config | 설명 |
+|--------|------|
+| `smartm2m-eslint-config/ts` | TypeScript 규칙 |
+| `smartm2m-eslint-config/import` | Import 규칙 |
+| `smartm2m-eslint-config/a11y` | 접근성 규칙 |
+| `smartm2m-eslint-config/prettier` | Prettier 통합 |
+
+내부 구조: `rules/base/`, `rules/typescript/`, `rules/react/`, `rules/next/`, `rules/accessibility/`, `rules/formatting/` 에서 규칙을 조합해 presets를 만듭니다.
 
 ## 설치
 

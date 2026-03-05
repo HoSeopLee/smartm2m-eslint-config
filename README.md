@@ -214,7 +214,7 @@ export default [
 - 비대화형 요소에 tabindex 사용 금지
 
 ### Import
-- Import 순서 자동 정렬 (`eslint-plugin-simple-import-sort` 사용)
+- Import 순서 자동 정렬 (`eslint-plugin-simple-import-sort` 사용, `import/order`는 비활성화)
 - 미사용 import 자동 정리
 - 중복 import 방지
 - 절대 경로 사용 권장 (`@/` prefix, `src` 기준, 상대 경로 경고)

@@ -41,13 +41,12 @@ export default {
 
 					// 3. React / Next – import React from 'react'; import Link from 'next/link';
 					['^react', '^next',],
-// 5. External packages – import { debounce } from 'lodash'; import clsx from 'clsx';
-['^@?\\w'],
 
-					// 4. Internal alias – import { Button } from '@/components/Button';
+					// 4. External packages – import { debounce } from 'lodash'; import clsx from 'clsx';
+					['^@?\\w'],
+
+					// 5. Internal alias – import { Button } from '@/components/Button';
 					['^@/'],
-
-					
 
 					// 6. Absolute – 그 외 . 으로 시작하지 않는 경로
 					['^[^.]'],
@@ -95,5 +94,6 @@ export default {
 				prefix: '@',
 			},
 		],
+		'import/order': 'off',
 	},
 };

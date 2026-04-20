@@ -28,7 +28,7 @@ export default {
 		// React 17+ 전제, JSX scope (off)
 		'react/react-in-jsx-scope': 'off',
 		// named 컴포넌트는 화살표 함수 (error)
-		'react/function-component-definition': ['error', { namedComponents: 'arrow-function' }],
+		'react/function-component-definition': ['error', { namedComponents: ['arrow-function', 'function-declaration'] }],
 		// defaultProps 필수 아님 (off)
 		'react/require-default-props': 'off',
 		// props spreading 허용 (off)
@@ -86,12 +86,16 @@ export default {
 		// javascript: URL 경고 (warn)
 		'react/jsx-no-script-url': 'warn',
 		// target="_blank" 시 rel noopener noreferrer (warn)
-		'react/jsx-no-target-blank': 'warn',
+		'react/jsx-no-target-blank': ['warn', { allowReferrer: true }],
 		// 미사용 state 경고 (warn)
 		'react/no-unused-state': 'warn',
-		// Hooks 규칙 (error)
-		'react-hooks/rules-of-hooks': 'error',
-		// exhaustive-deps (off)
-		'react-hooks/exhaustive-deps': 'off',
+		// Hooks 규칙 (off)
+		'react-hooks/rules-of-hooks': 'off',
+		// exhaustive-deps (warn)
+		'react-hooks/exhaustive-deps': 'warn',
+		// 렌더링 누출 방지 (error)
+		'react/jsx-no-leaked-render': ['error', { validStrategies: ['coerce', 'ternary'] }],
+		// context 값 변경 금지 (warn)
+		'react/jsx-no-constructed-context-values': 'warn'
 	},
 };

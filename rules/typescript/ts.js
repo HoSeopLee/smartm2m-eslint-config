@@ -11,8 +11,6 @@ export default {
 		},
 	},
 	rules: {
-		// 세미콜론은 Prettier가 담당 (off)
-		'@typescript-eslint/semi': 'off',
 		// no-useless-catch (off)
 		'no-useless-catch': 'off',
 		// 반환 타입 명시 강제 안 함 (off)

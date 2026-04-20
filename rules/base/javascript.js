@@ -31,8 +31,8 @@ export const generalRules = {
 	'eslint-disable-next-line': 'off',
 	// 중첩 삼항 연산자 경고 (warn)
 	'no-nested-ternary': 'warn',
-	// 일관된 return 권장 (warn)
-	'consistent-return': 'warn',
+	// 일관된 return 권장 (off)
+	'consistent-return': 'off',
 	// 사용되지 않은 표현식 경고 (warn)
 	'no-unused-expressions': 'warn',
 	// debugger 경고 (warn)

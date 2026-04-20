@@ -41,5 +41,13 @@ export default {
 		'@next/next/no-before-interactive-script-outside-document': 'error',
 		// 페이지에서 Document import (off, 프로젝트별 설정)
 		'@next/next/no-document-import-in-page': 'off',
+		// Google Fonts에 display 속성 지정 (warn)
+		'@next/next/google-font-display': 'warn',
+		// Google Fonts에 preconnect 지정 (warn)
+		'@next/next/google-font-preconnect': 'warn',
+		// <Script> 컴포넌트에 id 필수 (warn)
+		'@next/next/inline-script-id': 'warn',
+		// GA는 next/script 사용 권장 (warn)
+		'@next/next/next-script-for-ga': 'warn',
 	},
 };

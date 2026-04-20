@@ -47,11 +47,18 @@ npm install -D smartm2m-eslint-config
 # 2단계: 필수 의존성 설치 (yarn/pnpm 사용 시 npm을 yarn 또는 pnpm으로 교체)
 npm install -D @eslint/js eslint eslint-config-prettier eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-no-relative-import-paths eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-simple-import-sort eslint-plugin-unused-imports globals typescript-eslint
 
-# Next.js 프로젝트인 경우 추가 설치
+# TypeScript 프로젝트에서 import resolver를 사용하는 경우 추가 설치 (optional)
+npm install -D eslint-import-resolver-typescript
+
+# Next.js 프로젝트인 경우 추가 설치 (optional)
 npm install -D @next/eslint-plugin-next
 ```
 
-> **참고**: 이 패키지는 `peerDependencies`를 사용하므로, 필수 의존성을 별도로 설치해야 합니다.
+> **참고**:
+> - 이 패키지는 `peerDependencies`를 사용하므로, 필수 의존성을 별도로 설치해야 합니다.
+> - `@next/eslint-plugin-next`, `eslint-import-resolver-typescript`는 `peerDependenciesMeta`에서 `optional: true`로 지정되어 있어, 사용하지 않는 프로젝트에서는 설치 생략 가능합니다.
+> - `eslint-plugin-react-hooks`는 v4/v5 모두 호환됩니다 (React 19 / Next 15 환경은 v5 권장).
+> - `eslint-plugin-unused-imports`는 v3/v4 모두 호환됩니다.
 
 ## 사용 방법
 
@@ -129,7 +136,7 @@ export default [
 
 기본 설정은 `project: true`로 tsconfig를 자동 탐지합니다. 프로젝트 루트에 `tsconfig.json`(또는 `tsconfig.app.json`)이 있으면 별도 설정 없이 동작합니다.
 
-Tailwind CSS를 사용하는 경우 `better-tailwindcss` 설정을 추가할 수 있습니다:
+Vite 등 커스텀 tsconfig 경로를 쓰는 경우 프로젝트별로 `project` 경로를 오버라이드할 수 있습니다:
 
 ```javascript
 import reactConfig from 'smartm2m-eslint-config/react';
@@ -156,14 +163,12 @@ export default [
       react: {
         version: 'detect', // React 버전 명시
       },
-      // 프로젝트별 설정 (예: tailwind 경로)
-      'better-tailwindcss': {
-        entryPoint: path.resolve(__dirname, 'src/styles/tailwind.css'),
-      },
     },
   },
 ];
 ```
+
+> **Tailwind CSS 규칙이 필요한 경우**: `better-tailwindcss`, `eslint-plugin-tailwindcss` 같은 플러그인은 이 패키지에 포함되어 있지 않습니다. 프로젝트에서 직접 설치·설정해 `settings`/`plugins`/`rules`에 추가하세요.
 
 #### Next.js 프로젝트
 
@@ -193,10 +198,6 @@ export default [
       react: {
         version: 'detect', // React 버전 명시
       },
-      // 프로젝트별 설정 (예: tailwind 경로)
-      'better-tailwindcss': {
-        entryPoint: path.resolve(__dirname, 'src/styles/tailwind.css'),
-      },
     },
   },
 ];
@@ -212,6 +213,10 @@ export default [
 - self-closing 태그 강제, Fragment 축약형 사용
 - boolean prop 축약형 사용
 - state 직접 변경 방지, deprecated API 사용 경고
+- 컴포넌트 정의는 화살표 함수 또는 함수 선언문 허용 (`function-component-definition`)
+- `{cond && <X />}` 패턴의 렌더 누출 방지 (`jsx-no-leaked-render`)
+- Context Provider에 인라인 객체/배열 전달 경고 (`jsx-no-constructed-context-values`)
+- `useEffect` 등 Hooks 의존성 누락 경고 (`react-hooks/exhaustive-deps`)
 
 ### TypeScript
 - TypeScript 관련 규칙 및 네이밍 컨벤션
@@ -228,9 +233,11 @@ export default [
 
 ### Import
 - Import 순서 자동 정렬 (`eslint-plugin-simple-import-sort` 사용, `import/order`는 비활성화)
-- 미사용 import 자동 정리
+  - side-effect → `node:` → `react`/`next` → 외부 패키지 → `@/` → 절대 경로 → 상대 경로 → CSS 순
+- 미사용 import 자동 정리 (`unused-imports/no-unused-imports`)
 - 중복 import 방지
 - 절대 경로 사용 권장 (`@/` prefix, `src` 기준, 상대 경로 경고)
+- TypeScript import resolver는 optional — `eslint-import-resolver-typescript` 설치 시 자동 활성화
 
 ### Prettier
 - Prettier 통합 및 충돌 방지
@@ -246,7 +253,6 @@ export default [
 - switch 문 fallthrough 방지
 - 생성자에서 return 사용 방지
 - 중첩된 삼항 연산자 경고
-- 함수 반환 일관성 권장
 
 ### Next.js (선택 사항)
 - Next.js 전용 ESLint 규칙 적용
@@ -254,6 +260,9 @@ export default [
 - `<img>` 태그 대신 Next.js `Image` 컴포넌트 사용 권장
 - Document Head 관련 규칙 (next/head 사용 권장)
 - Next.js API 이름 오타 검사
+- Google Fonts 최적화 체크 (`display`, `preconnect` 속성)
+- `<Script>` 컴포넌트 `id` 속성 필수 (`inline-script-id`)
+- Google Analytics는 `next/script` 사용 권장 (`next-script-for-ga`)
 - Next.js 빌드 파일 무시 (`.next/`, `out/`, `next-env.d.ts` 등)
 
 > **참고**: Next.js 설정은 React 설정의 모든 기능을 포함하며, Next.js 특화 규칙이 추가로 적용됩니다.

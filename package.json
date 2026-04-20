@@ -1,6 +1,6 @@
 {
   "name": "smartm2m-eslint-config",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Shared ESLint configuration for React and Next.js projects",
   "main": "index.js",
   "type": "module",
@@ -38,20 +38,29 @@
   "homepage": "https://github.com/HoSeopLee/smartm2m-eslint-config#readme",
   "peerDependencies": {
     "@eslint/js": "^9.0.0",
-    "@next/eslint-plugin-next": "^14.0.0 || ^15.0.0 || ^16.0.0",
+    "@next/eslint-plugin-next": "^14.0.0 || ^15.0.0",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-typescript": "^3.6.0",
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-jsx-a11y": "^6.9.0",
     "eslint-plugin-no-relative-import-paths": "^1.5.0",
     "eslint-plugin-prettier": "^5.1.0",
     "eslint-plugin-react": "^7.34.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-hooks": "^4.6.0 || ^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.0",
     "eslint-plugin-simple-import-sort": "^12.0.0",
-    "eslint-plugin-unused-imports": "^3.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0 || ^4.0.0",
     "globals": "^15.0.0",
     "typescript-eslint": "^8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@next/eslint-plugin-next": {
+      "optional": true
+    },
+    "eslint-import-resolver-typescript": {
+      "optional": true
+    }
   },
   "scripts": {
     "test": "node __tests__/test-load.js",

@@ -1,7 +1,5 @@
 import js from '@eslint/js';
-import path from 'path';
 import tseslint from 'typescript-eslint';
-import { fileURLToPath } from 'url';
 
 import { browserNodeGlobals } from '../rules/base/globals.js';
 import importConfig from '../rules/base/imports.js';
@@ -11,8 +9,6 @@ import reactConfig from '../rules/react/react.js';
 import nextConfig from '../rules/next/next.js';
 import a11yConfig from '../rules/accessibility/a11y.js';
 import prettierConfig from '../rules/formatting/prettier.js';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default tseslint.config([
 	{
@@ -55,9 +51,6 @@ export default tseslint.config([
 			},
 		},
 		settings: {
-			'better-tailwindcss': {
-				entryPoint: path.resolve(__dirname, '..', 'src/styles/tailwind.css'),
-			},
 			...reactConfig.settings,
 			...importConfig.settings,
 		},
@@ -89,9 +82,6 @@ export default tseslint.config([
 			},
 		},
 		settings: {
-			'better-tailwindcss': {
-				entryPoint: path.resolve(__dirname, '..', 'src/styles/tailwind.css'),
-			},
 			...reactConfig.settings,
 			...importConfig.settings,
 		},

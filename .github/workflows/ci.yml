@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: npm install --no-package-lock
 
+      - name: Install optional peer dependencies (for full test coverage)
+        run: npm install --no-save --no-package-lock @next/eslint-plugin-next eslint-import-resolver-typescript
+
       - name: Load test (test-load.js)
         run: npm run test:load
 

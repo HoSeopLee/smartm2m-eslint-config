@@ -7,7 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > **버전 히스토리 참고사항**
 > - **1.0.3**: npm에 publish 되지 않은 내부 준비(prep) 버전. `package.json` 에만 존재했고, `presets/` + `rules/` 구조 리팩터 작업을 하다가 다듬기 후 1.0.4 로 통합 발행됨. npm 레지스트리에서는 조회 불가.
-> - **1.0.4**: 공개 발행되었으나 `no-implicit-coercion` + `react/jsx-no-leaked-render`(coerce) 오토픽스 체인이 `{x && <Y/>}` → `{Boolean(x) && <Y/>}` 형태로 코드를 장황하게 변환하는 이슈가 있음. 1.0.5 이상 사용 권장 (`npm deprecate` 처리).
+> - **1.0.4**: 공개 발행되었으나 `no-implicit-coercion` + `react/jsx-no-leaked-render`(coerce) 오토픽스 체인이 `{x && <Y/>}` → `{Boolean(x) && <Y/>}` 형태로 코드를 장황하게 변환하는 이슈가 있음. 1.0.6 이상 사용 권장 (`npm deprecate` 처리).
+> - **1.0.5**: `jsx-no-leaked-render` 가 `ternary` 전략으로 autofix 되어 코드가 `{x ? <Y/> : null}` 로 강제 변환됨. 팀 코드 스타일과 상충되어 1.0.6 에서 해당 규칙을 off 처리. 이슈는 아니지만 1.0.6 사용 권장.
+
+## [1.0.6] - 2026-04-21
+
+### Changed
+
+- **`react/jsx-no-leaked-render`**: `error` → `off`
+  - 해당 규칙이 업계 표준(React 공식 recommended, Next.js, Airbnb 기본 프리셋 등)에 포함되지 않는 **선택적 방어 규칙**이라는 점, autofix 가 `{x ? <Y/> : null}` 또는 `{Boolean(x) && <Y/>}` 로 코드를 강제 변환하여 팀 코드 스타일을 해치는 점을 고려해 기본 off 처리
+  - **0 리키 버그**(`{list.length && <X/>}` 가 빈 배열일 때 "0" 렌더)는 TypeScript 타입 + 코드리뷰로 방어
+  - 엄격한 검사 원하는 프로젝트는 consumer `eslint.config.js` 에서 `'react/jsx-no-leaked-render': ['error', { validStrategies: ['ternary'] }]` 로 opt-in 가능
+
+### Removed
+
+- `__tests__/fixtures/rules/jsx-no-leaked-render.tsx` fixture 제거 (규칙 off 로 더 이상 검증 대상 아님)
+
+### Docs
+
+- CHANGELOG / README 버전 히스토리 업데이트 (1.0.6 신규, 1.0.5 보완 설명)
+- README "포함된 설정 > React" 섹션에서 `jsx-no-leaked-render` 언급 제거
+
+---
 
 ## [1.0.5] - 2026-04-21
 

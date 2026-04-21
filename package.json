@@ -1,6 +1,6 @@
 {
   "name": "smartm2m-eslint-config",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Shared ESLint configuration for React and Next.js projects",
   "main": "index.js",
   "type": "module",

@@ -10,9 +10,10 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 > 이 설정은 ESLint 9 Flat Config 형식을 사용하며, `.eslintrc`(레거시) 형식은 지원하지 않습니다.
 
 > 📌 **버전 사용 안내 (2026-04-21 기준)**
-> - **`>=1.0.5` 사용 권장** — `eslint --fix` 가 `{x && <Y/>}` 을 `{Boolean(x) && <Y/>}` 로 바꾸던 오토픽스 체인 이슈가 수정되었습니다.
-> - **`1.0.4` 는 deprecated** — 설치는 가능하지만 위 이슈로 인해 `npm install` 시 경고가 표시됩니다. 기존 사용자는 `1.0.5+` 로 업그레이드하세요.
-> - **`1.0.3` 은 존재하지 않습니다** — npm 에 publish 되지 않은 내부 준비 버전입니다 (`presets/` + `rules/` 구조 리팩터 중간 단계). `1.0.2 → 1.0.4 → 1.0.5` 순서로 릴리스되었습니다. 자세한 히스토리는 [CHANGELOG](./CHANGELOG.md) 참고.
+> - **`>=1.0.6` 사용 권장** — `react/jsx-no-leaked-render` 기본 off 처리로 autofix 가 코드 스타일을 강제 변환하지 않습니다.
+> - **`1.0.5`** — 기능상 문제는 없지만 `jsx-no-leaked-render` 가 `{x && <Y/>}` 을 `{x ? <Y/> : null}` 로 강제 변환하는 불편이 있습니다. 엄격한 검사를 원하는 팀만 명시 선택.
+> - **`1.0.4` 는 deprecated** — `{x && <Y/>}` 을 `{Boolean(x) && <Y/>}` 로 바꾸던 오토픽스 체인 이슈가 있어 `npm install` 시 경고가 표시됩니다. `1.0.6+` 로 업그레이드하세요.
+> - **`1.0.3` 은 존재하지 않습니다** — npm 에 publish 되지 않은 내부 준비 버전입니다 (`presets/` + `rules/` 구조 리팩터 중간 단계). `1.0.2 → 1.0.4 → 1.0.5 → 1.0.6` 순서로 릴리스되었습니다. 자세한 히스토리는 [CHANGELOG](./CHANGELOG.md) 참고.
 
 ## Config Structure
 
@@ -219,8 +220,8 @@ export default [
 - boolean prop 축약형 사용
 - state 직접 변경 방지, deprecated API 사용 경고
 - 컴포넌트 정의는 화살표 함수 또는 함수 선언문 허용 (`function-component-definition`)
-- `{cond && <X />}` 패턴의 렌더 누출 방지 — **삼항(`cond ? <X/> : null`)** 으로만 오토픽스 (`jsx-no-leaked-render`, v1.0.5)
 - Context Provider에 인라인 객체/배열 전달 경고 (`jsx-no-constructed-context-values`)
+  - `react/jsx-no-leaked-render` 는 **기본 off** (v1.0.6~). 필요한 프로젝트만 consumer 측에서 opt-in
 - `useEffect` 등 Hooks 의존성 누락 경고 (`react-hooks/exhaustive-deps`)
 - Hooks 호출 규칙 강제 (`react-hooks/rules-of-hooks`, error)
 

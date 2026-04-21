@@ -93,8 +93,8 @@ export default {
 		'react-hooks/rules-of-hooks': 'error',
 		// exhaustive-deps (warn)
 		'react-hooks/exhaustive-deps': 'warn',
-		// 렌더링 누출 방지 (error) - ternary 전략만 허용 (coerce autofix가 !!/Boolean() 래핑 체인을 유발해서 제외)
-		'react/jsx-no-leaked-render': ['error', { validStrategies: ['ternary'] }],
+		// 렌더링 누출 방지 (off) - autofix가 ternary/Boolean() 등으로 강제 변환해 코드 스타일 침해, 팀 코드리뷰·TS 타입으로 대체 (v1.0.6)
+		'react/jsx-no-leaked-render': 'off',
 		// context 값 변경 금지 (warn)
 		'react/jsx-no-constructed-context-values': 'warn'
 	},

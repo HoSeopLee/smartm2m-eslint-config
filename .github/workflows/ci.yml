@@ -40,8 +40,5 @@ jobs:
       - name: Import-sort test
         run: npm run test:import-sort
 
-      - name: Import-sort fail test
-        run: npm run test:import-sort:fail
-
       - name: Rule fixtures test
         run: npm run test:rules

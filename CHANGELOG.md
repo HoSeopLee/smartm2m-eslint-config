@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+> **버전 히스토리 참고사항**
+> - **1.0.3**: npm에 publish 되지 않은 내부 준비(prep) 버전. `package.json` 에만 존재했고, `presets/` + `rules/` 구조 리팩터 작업을 하다가 다듬기 후 1.0.4 로 통합 발행됨. npm 레지스트리에서는 조회 불가.
+> - **1.0.4**: 공개 발행되었으나 `no-implicit-coercion` + `react/jsx-no-leaked-render`(coerce) 오토픽스 체인이 `{x && <Y/>}` → `{Boolean(x) && <Y/>}` 형태로 코드를 장황하게 변환하는 이슈가 있음. 1.0.5 이상 사용 권장 (`npm deprecate` 처리).
+
+## [1.0.5] - 2026-04-21
+
+### Changed
+
+- **`no-implicit-coercion`**: `warn` → `off`
+  - `!!`, `+x`, `'' + x` 같은 JS 관용 표현 허용
+  - 1.0.4 에서 이 규칙 autofix 가 `!!x` 를 `Boolean(x)` 로 바꾸던 부작용 제거
+- **`react/jsx-no-leaked-render`**: `validStrategies: ['coerce', 'ternary']` → `['ternary']`
+  - 오토픽스가 `!!` / `Boolean()` 래핑 대신 **삼항(`cond ? <X/> : null`)** 으로만 변환
+  - 위 `no-implicit-coercion` 변경과 연동되어 코드 스타일 일관성 확보
+
+### Fixed
+
+- **`react-hooks/rules-of-hooks`**: `off` → `error` 복구
+  - 이전 리팩터 과정에서 실수로 `off` 처리되어 있던 Hooks 필수 규칙 복원 (이 규칙은 React 동작 기반이라 반드시 `error` 여야 함)
+- **주석 동기화**: `no-implicit-coercion`, `react-hooks/rules-of-hooks` 의 주석 `(warn/off/error)` 표기를 실제 값과 일치
+
+### Docs
+
+- README "포함된 설정" 섹션의 JavaScript / React 규칙 설명 업데이트
+- CHANGELOG 상단에 1.0.3(미발행), 1.0.4(권장 종료) 히스토리 명시
+
+---
+
 ## [1.0.4] - 2026-04-21
 
 ### Added

@@ -49,8 +49,8 @@ export const generalRules = {
 	'prefer-const': 'error',
 	// 화살표 함수 권장 (warn)
 	'prefer-arrow-callback': 'warn',
-	// 암묵적 타입 변환 경고 (warn)
-	'no-implicit-coercion': 'warn',
+	// 암묵적 타입 변환 (off) - !! 등 JS 관용 표현 허용, jsx-no-leaked-render와의 autofix 체인 회피
+	'no-implicit-coercion': 'off',
 	// 구조 분해 할당에 대한 컨벤션을 맞추면 일관적인 코드를 유지할 수 있어 가독성에 도움
 	// 변수 선언식에서 객체에 대해서만 구조 분해 할당 규칙을 강제
 	// ESLint의 --fix 옵션을 넣어서 실행하면 구조 분해 할당을 적용하는 코드로 자동 수정

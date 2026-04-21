@@ -214,9 +214,10 @@ export default [
 - boolean prop 축약형 사용
 - state 직접 변경 방지, deprecated API 사용 경고
 - 컴포넌트 정의는 화살표 함수 또는 함수 선언문 허용 (`function-component-definition`)
-- `{cond && <X />}` 패턴의 렌더 누출 방지 (`jsx-no-leaked-render`)
+- `{cond && <X />}` 패턴의 렌더 누출 방지 — **삼항(`cond ? <X/> : null`)** 으로만 오토픽스 (`jsx-no-leaked-render`, v1.0.5)
 - Context Provider에 인라인 객체/배열 전달 경고 (`jsx-no-constructed-context-values`)
 - `useEffect` 등 Hooks 의존성 누락 경고 (`react-hooks/exhaustive-deps`)
+- Hooks 호출 규칙 강제 (`react-hooks/rules-of-hooks`, error)
 
 ### TypeScript
 - TypeScript 관련 규칙 및 네이밍 컨벤션
@@ -248,11 +249,12 @@ export default [
 - `eval` 사용 금지
 - `debugger`, `alert` 사용 경고
 - 사용되지 않은 표현식 경고
-- 구조 분해 할당 권장
+- 구조 분해 할당 권장 (객체만, `prefer-destructuring`)
 - 배열 메서드 콜백에서 return 문 체크 (버그 방지)
 - switch 문 fallthrough 방지
 - 생성자에서 return 사용 방지
 - 중첩된 삼항 연산자 경고
+- `no-implicit-coercion`은 off (v1.0.5): `!!x`, `+x` 등 JS 관용 표현 허용 — `jsx-no-leaked-render` 오토픽스와 충돌 방지
 
 ### Next.js (선택 사항)
 - Next.js 전용 ESLint 규칙 적용

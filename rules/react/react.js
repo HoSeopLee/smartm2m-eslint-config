@@ -89,12 +89,12 @@ export default {
 		'react/jsx-no-target-blank': ['warn', { allowReferrer: true }],
 		// 미사용 state 경고 (warn)
 		'react/no-unused-state': 'warn',
-		// Hooks 규칙 (off)
-		'react-hooks/rules-of-hooks': 'off',
+		// Hooks 규칙 (error)
+		'react-hooks/rules-of-hooks': 'error',
 		// exhaustive-deps (warn)
 		'react-hooks/exhaustive-deps': 'warn',
-		// 렌더링 누출 방지 (error)
-		'react/jsx-no-leaked-render': ['error', { validStrategies: ['coerce', 'ternary'] }],
+		// 렌더링 누출 방지 (error) - ternary 전략만 허용 (coerce autofix가 !!/Boolean() 래핑 체인을 유발해서 제외)
+		'react/jsx-no-leaked-render': ['error', { validStrategies: ['ternary'] }],
 		// context 값 변경 금지 (warn)
 		'react/jsx-no-constructed-context-values': 'warn'
 	},

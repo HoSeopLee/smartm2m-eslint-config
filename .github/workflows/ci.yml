@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test on Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [18, 20, 22]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: npm install --no-package-lock
+
+      - name: Install optional peer dependencies (for full test coverage)
+        run: npm install --no-save --no-package-lock @next/eslint-plugin-next eslint-import-resolver-typescript
+
+      - name: Load test (test-load.js)
+        run: npm run test:load
+
+      - name: Lint config test (test-config.js)
+        run: npm run test:lint
+
+      - name: Import-sort test
+        run: npm run test:import-sort
+
+      - name: Rule fixtures test
+        run: npm run test:rules

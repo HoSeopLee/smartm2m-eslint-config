@@ -10,10 +10,11 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 > 이 설정은 ESLint 9 Flat Config 형식을 사용하며, `.eslintrc`(레거시) 형식은 지원하지 않습니다.
 
 > 📌 **버전 사용 안내 (2026-04-21 기준)**
-> - **`>=1.0.6` 사용 권장** — `react/jsx-no-leaked-render` 기본 off 처리로 autofix 가 코드 스타일을 강제 변환하지 않습니다.
-> - **`1.0.5`** — 기능상 문제는 없지만 `jsx-no-leaked-render` 가 `{x && <Y/>}` 을 `{x ? <Y/> : null}` 로 강제 변환하는 불편이 있습니다. 엄격한 검사를 원하는 팀만 명시 선택.
-> - **`1.0.4` 는 deprecated** — `{x && <Y/>}` 을 `{Boolean(x) && <Y/>}` 로 바꾸던 오토픽스 체인 이슈가 있어 `npm install` 시 경고가 표시됩니다. `1.0.6+` 로 업그레이드하세요.
-> - **`1.0.3` 은 존재하지 않습니다** — npm 에 publish 되지 않은 내부 준비 버전입니다 (`presets/` + `rules/` 구조 리팩터 중간 단계). `1.0.2 → 1.0.4 → 1.0.5 → 1.0.6` 순서로 릴리스되었습니다. 자세한 히스토리는 [CHANGELOG](./CHANGELOG.md) 참고.
+> - **`>=1.0.7` 사용 권장** — `react-hooks/exhaustive-deps` 기본 off 처리로 stable 값에 대한 false positive 경고 제거 + peerDependencies 를 `>=X.0.0` 패턴으로 통일해 새 major 호환성 자동 확보.
+> - **`1.0.6`** — 기능상 문제는 없지만 `exhaustive-deps` 가 `warn` 이라 `queryClient`, setter, 커스텀 훅 반환값 등 stable 값에 대해 false positive 가 다수 발생. 엄격한 검사 원하는 팀만 명시 선택.
+> - **`1.0.5`** — `jsx-no-leaked-render` 가 `{x && <Y/>}` 을 `{x ? <Y/> : null}` 로 강제 변환하는 불편이 있어 deprecated.
+> - **`1.0.4`** — `{x && <Y/>}` 을 `{Boolean(x) && <Y/>}` 로 바꾸던 오토픽스 체인 이슈로 deprecated.
+> - **`1.0.3` 은 존재하지 않습니다** — npm 에 publish 되지 않은 내부 준비 버전입니다. `1.0.2 → 1.0.4 → 1.0.5 → 1.0.6 → 1.0.7` 순서로 릴리스되었습니다. 자세한 히스토리는 [CHANGELOG](./CHANGELOG.md) 참고.
 
 ## Config Structure
 
@@ -63,8 +64,7 @@ npm install -D @next/eslint-plugin-next
 > **참고**:
 > - 이 패키지는 `peerDependencies`를 사용하므로, 필수 의존성을 별도로 설치해야 합니다.
 > - `@next/eslint-plugin-next`, `eslint-import-resolver-typescript`는 `peerDependenciesMeta`에서 `optional: true`로 지정되어 있어, 사용하지 않는 프로젝트에서는 설치 생략 가능합니다.
-> - `eslint-plugin-react-hooks`는 v4/v5 모두 호환됩니다 (React 19 / Next 15 환경은 v5 권장).
-> - `eslint-plugin-unused-imports`는 v3/v4 모두 호환됩니다.
+> - v1.0.7 부터 모든 peerDependencies 가 `>=X.0.0` 패턴으로 지정되어, 각 플러그인의 **미래 major 버전도 자동 호환** (`eslint-plugin-react-hooks` v4/v5+, `eslint-plugin-unused-imports` v3/v4+, `@next/eslint-plugin-next` v14/v15/v16+ 등). 실제 호환성 이슈 발견 시 사후에 상한 지정.
 
 ## 사용 방법
 
@@ -222,8 +222,9 @@ export default [
 - 컴포넌트 정의는 화살표 함수 또는 함수 선언문 허용 (`function-component-definition`)
 - Context Provider에 인라인 객체/배열 전달 경고 (`jsx-no-constructed-context-values`)
   - `react/jsx-no-leaked-render` 는 **기본 off** (v1.0.6~). 필요한 프로젝트만 consumer 측에서 opt-in
-- `useEffect` 등 Hooks 의존성 누락 경고 (`react-hooks/exhaustive-deps`)
 - Hooks 호출 규칙 강제 (`react-hooks/rules-of-hooks`, error)
+  - `react-hooks/exhaustive-deps` 는 **기본 off** (v1.0.7~, stable 값 false positive 과다). 엄격 검사 원하면 consumer 측에서 opt-in
+  - `react/jsx-no-leaked-render` 도 **기본 off** (v1.0.6~)
 
 ### TypeScript
 - TypeScript 관련 규칙 및 네이밍 컨벤션

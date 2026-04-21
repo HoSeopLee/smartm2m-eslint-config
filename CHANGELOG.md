@@ -7,8 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > **버전 히스토리 참고사항**
 > - **1.0.3**: npm에 publish 되지 않은 내부 준비(prep) 버전. `package.json` 에만 존재했고, `presets/` + `rules/` 구조 리팩터 작업을 하다가 다듬기 후 1.0.4 로 통합 발행됨. npm 레지스트리에서는 조회 불가.
-> - **1.0.4**: 공개 발행되었으나 `no-implicit-coercion` + `react/jsx-no-leaked-render`(coerce) 오토픽스 체인이 `{x && <Y/>}` → `{Boolean(x) && <Y/>}` 형태로 코드를 장황하게 변환하는 이슈가 있음. 1.0.6 이상 사용 권장 (`npm deprecate` 처리).
-> - **1.0.5**: `jsx-no-leaked-render` 가 `ternary` 전략으로 autofix 되어 코드가 `{x ? <Y/> : null}` 로 강제 변환됨. 팀 코드 스타일과 상충되어 1.0.6 에서 해당 규칙을 off 처리. 이슈는 아니지만 1.0.6 사용 권장.
+> - **1.0.4**: 공개 발행되었으나 `no-implicit-coercion` + `react/jsx-no-leaked-render`(coerce) 오토픽스 체인이 `{x && <Y/>}` → `{Boolean(x) && <Y/>}` 형태로 코드를 장황하게 변환하는 이슈가 있음. 1.0.7 이상 사용 권장 (`npm deprecate` 처리).
+> - **1.0.5**: `jsx-no-leaked-render` 가 `ternary` 전략으로 autofix 되어 코드가 `{x ? <Y/> : null}` 로 강제 변환됨. 팀 코드 스타일과 상충되어 1.0.6 에서 해당 규칙을 off 처리. 1.0.7 이상 사용 권장.
+> - **1.0.6**: `react-hooks/exhaustive-deps` 가 `warn` 으로 남아있어 stable 값(queryClient, setter, 커스텀 훅 반환값)에 대해 false positive 경고가 다수 발생. 1.0.7 에서 `off` 처리. 엄격 검사 원하는 프로젝트는 consumer 측에서 opt-in.
+
+## [1.0.7] - 2026-04-21
+
+### Changed
+
+- **`react-hooks/exhaustive-deps`**: `warn` → `off`
+  - `useQueryClient()`, `useState` setter, 커스텀 훅 반환값 등 **실제로는 stable 한 값**에 대해 false positive 가 다수 발생해 팀 노이즈 유발
+  - 코드 리뷰 + `useCallback`/`useReducer` 패턴으로 stale closure 방어
+  - 엄격한 검사 원하는 프로젝트는 consumer `eslint.config.js` 에서 `'react-hooks/exhaustive-deps': 'warn'` 으로 opt-in 가능
+- **peerDependencies 전체 `>=` 패턴으로 통일**
+  - `^X || ^Y` 나열식 → `>=X.0.0` 으로 단순화
+  - 새 major 출시 때마다 수동 릴리스 불필요
+  - 호환성 문제 생기면 사후에 상한 추가로 대응
+  - 예: `@next/eslint-plugin-next`, `eslint-plugin-react-hooks`, `eslint-plugin-unused-imports` 등
+
+### Docs
+
+- CHANGELOG 상단 버전 히스토리 블록에 1.0.6 상태 설명 추가
+- README 버전 사용 안내 업데이트 (1.0.7 권장, 1.0.6 상태 명시)
+
+---
 
 ## [1.0.6] - 2026-04-21
 

@@ -91,8 +91,8 @@ export default {
 		'react/no-unused-state': 'warn',
 		// Hooks 규칙 (error)
 		'react-hooks/rules-of-hooks': 'error',
-		// exhaustive-deps (warn)
-		'react-hooks/exhaustive-deps': 'warn',
+		// exhaustive-deps (off) - false positive가 많고(특히 stable 값/커스텀 훅) 팀에 노이즈, 코드리뷰·useCallback 패턴으로 대체 (v1.0.7)
+		'react-hooks/exhaustive-deps': 'off',
 		// 렌더링 누출 방지 (off) - autofix가 ternary/Boolean() 등으로 강제 변환해 코드 스타일 침해, 팀 코드리뷰·TS 타입으로 대체 (v1.0.6)
 		'react/jsx-no-leaked-render': 'off',
 		// context 값 변경 금지 (warn)

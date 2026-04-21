@@ -9,6 +9,11 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 > ⚠️ **ESLint 9 Flat Config 전용**  
 > 이 설정은 ESLint 9 Flat Config 형식을 사용하며, `.eslintrc`(레거시) 형식은 지원하지 않습니다.
 
+> 📌 **버전 사용 안내 (2026-04-21 기준)**
+> - **`>=1.0.5` 사용 권장** — `eslint --fix` 가 `{x && <Y/>}` 을 `{Boolean(x) && <Y/>}` 로 바꾸던 오토픽스 체인 이슈가 수정되었습니다.
+> - **`1.0.4` 는 deprecated** — 설치는 가능하지만 위 이슈로 인해 `npm install` 시 경고가 표시됩니다. 기존 사용자는 `1.0.5+` 로 업그레이드하세요.
+> - **`1.0.3` 은 존재하지 않습니다** — npm 에 publish 되지 않은 내부 준비 버전입니다 (`presets/` + `rules/` 구조 리팩터 중간 단계). `1.0.2 → 1.0.4 → 1.0.5` 순서로 릴리스되었습니다. 자세한 히스토리는 [CHANGELOG](./CHANGELOG.md) 참고.
+
 ## Config Structure
 
 이 패키지는 **presets**(조합된 설정)와 **rules**(도메인별 규칙)로 확장 가능한 구조입니다.
@@ -214,9 +219,10 @@ export default [
 - boolean prop 축약형 사용
 - state 직접 변경 방지, deprecated API 사용 경고
 - 컴포넌트 정의는 화살표 함수 또는 함수 선언문 허용 (`function-component-definition`)
-- `{cond && <X />}` 패턴의 렌더 누출 방지 (`jsx-no-leaked-render`)
+- `{cond && <X />}` 패턴의 렌더 누출 방지 — **삼항(`cond ? <X/> : null`)** 으로만 오토픽스 (`jsx-no-leaked-render`, v1.0.5)
 - Context Provider에 인라인 객체/배열 전달 경고 (`jsx-no-constructed-context-values`)
 - `useEffect` 등 Hooks 의존성 누락 경고 (`react-hooks/exhaustive-deps`)
+- Hooks 호출 규칙 강제 (`react-hooks/rules-of-hooks`, error)
 
 ### TypeScript
 - TypeScript 관련 규칙 및 네이밍 컨벤션
@@ -248,11 +254,12 @@ export default [
 - `eval` 사용 금지
 - `debugger`, `alert` 사용 경고
 - 사용되지 않은 표현식 경고
-- 구조 분해 할당 권장
+- 구조 분해 할당 권장 (객체만, `prefer-destructuring`)
 - 배열 메서드 콜백에서 return 문 체크 (버그 방지)
 - switch 문 fallthrough 방지
 - 생성자에서 return 사용 방지
 - 중첩된 삼항 연산자 경고
+- `no-implicit-coercion`은 off (v1.0.5): `!!x`, `+x` 등 JS 관용 표현 허용 — `jsx-no-leaked-render` 오토픽스와 충돌 방지
 
 ### Next.js (선택 사항)
 - Next.js 전용 ESLint 규칙 적용

@@ -11,7 +11,7 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 
 > 📌 **버전 사용 안내 (2026-04-21 기준)**
 > - **`>=1.0.7` 사용 권장** — `react-hooks/exhaustive-deps` 기본 off 처리로 stable 값에 대한 false positive 경고 제거 + peerDependencies 를 `>=X.0.0` 패턴으로 통일해 새 major 호환성 자동 확보.
-> - **`1.0.6`** — 기능상 문제는 없지만 `exhaustive-deps` 가 `warn` 이라 `queryClient`, setter, 커스텀 훅 반환값 등 stable 값에 대해 false positive 가 다수 발생. 엄격한 검사 원하는 팀만 명시 선택.
+> - **`1.0.6`** — `react-hooks/exhaustive-deps` 가 `warn` 으로 유지되어 엄격한 hook dependency 검사를 원하는 팀에는 유효한 선택지입니다 (deprecated 아님). 다만 stable 값(`queryClient`, setter, 커스텀 훅 반환값)에 대한 false positive 가 자주 발생해 일반 프로젝트엔 1.0.7 을 권장합니다.
 > - **`1.0.5`** — `jsx-no-leaked-render` 가 `{x && <Y/>}` 을 `{x ? <Y/> : null}` 로 강제 변환하는 불편이 있어 deprecated.
 > - **`1.0.4`** — `{x && <Y/>}` 을 `{Boolean(x) && <Y/>}` 로 바꾸던 오토픽스 체인 이슈로 deprecated.
 > - **`1.0.3` 은 존재하지 않습니다** — npm 에 publish 되지 않은 내부 준비 버전입니다. `1.0.2 → 1.0.4 → 1.0.5 → 1.0.6 → 1.0.7` 순서로 릴리스되었습니다. 자세한 히스토리는 [CHANGELOG](./CHANGELOG.md) 참고.

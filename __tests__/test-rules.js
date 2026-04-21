@@ -1,5 +1,5 @@
 import { ESLint } from 'eslint';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 import path from 'path';
 import { readdir, writeFile, unlink, readFile } from 'fs/promises';
 
@@ -22,7 +22,7 @@ async function testRules() {
 
 	const tempConfigPath = path.join(__dirname, 'temp-rules.config.js');
 	const configPath = path.join(rootDir, 'react.js');
-	const configCode = `import config from '${configPath.replace(/\\/g, '/')}';\nexport default config;\n`;
+	const configCode = `import config from ${JSON.stringify(pathToFileURL(configPath).href)};\nexport default config;\n`;
 	await writeFile(tempConfigPath, configCode, 'utf8');
 
 	const eslint = new ESLint({ overrideConfigFile: tempConfigPath });
@@ -44,6 +44,18 @@ async function testRules() {
 
 			const results = await eslint.lintFiles([file]);
 			const messages = results[0]?.messages ?? [];
+
+			// 파서/설정 치명 오류(fatal, ruleId 없음)는 fixture 결과를 왜곡하므로 먼저 실패 처리
+			const fatalErrors = messages.filter((m) => m.fatal || m.ruleId == null);
+			if (fatalErrors.length > 0) {
+				console.log(`  ❌ ${fileName}: 파서/설정 치명 오류 발생`);
+				fatalErrors.forEach((m) => {
+					console.log(`     - ${m.line}:${m.column} ${m.message}`);
+				});
+				failed++;
+				continue;
+			}
+
 			const ruleIds = new Set(messages.map((m) => m.ruleId).filter(Boolean));
 
 			if (expectRule) {

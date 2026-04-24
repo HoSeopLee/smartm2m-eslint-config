@@ -1,6 +1,6 @@
 {
   "name": "smartm2m-eslint-config",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Shared ESLint configuration for React and Next.js projects",
   "main": "index.js",
   "type": "module",
@@ -37,9 +37,9 @@
   },
   "homepage": "https://github.com/HoSeopLee/smartm2m-eslint-config#readme",
   "peerDependencies": {
-    "@eslint/js": ">=9.0.0",
+    "@eslint/js": ">=9.0.0 <10.0.0",
     "@next/eslint-plugin-next": ">=14.0.0",
-    "eslint": ">=9.0.0",
+    "eslint": ">=9.0.0 <10.0.0",
     "eslint-config-prettier": ">=9.0.0",
     "eslint-import-resolver-typescript": ">=3.6.0",
     "eslint-plugin-import": ">=2.29.0",

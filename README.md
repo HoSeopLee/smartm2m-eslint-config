@@ -9,12 +9,13 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 > ⚠️ **ESLint 9 Flat Config 전용**  
 > 이 설정은 ESLint 9 Flat Config 형식을 사용하며, `.eslintrc`(레거시) 형식은 지원하지 않습니다.
 
-> 📌 **버전 사용 안내 (2026-04-21 기준)**
-> - **`>=1.0.7` 사용 권장** — `react-hooks/exhaustive-deps` 기본 off 처리로 stable 값에 대한 false positive 경고 제거 + peerDependencies 를 `>=X.0.0` 패턴으로 통일해 새 major 호환성 자동 확보.
-> - **`1.0.6`** — `react-hooks/exhaustive-deps` 가 `warn` 으로 유지되어 엄격한 hook dependency 검사를 원하는 팀에는 유효한 선택지입니다 (deprecated 아님). 다만 stable 값(`queryClient`, setter, 커스텀 훅 반환값)에 대한 false positive 가 자주 발생해 일반 프로젝트엔 1.0.7 을 권장합니다.
+> 📌 **버전 사용 안내 (2026-04-24 기준)**
+> - **`>=1.0.8` 사용 권장** — 보안 audit 대응 (`flatted`, `brace-expansion`, `picomatch` 취약 transitive 패치 버전 반영) + `eslint`, `@eslint/js` peer 상한 `<10.0.0` 명시 (현 플러그인 생태계 호환 상태 정확히 반영).
+> - **`1.0.7`** — `react-hooks/exhaustive-deps` off + peerDependencies `>=X.0.0` 패턴 통일. 보안 audit 대응 전 버전.
+> - **`1.0.6`** — `react-hooks/exhaustive-deps` 가 `warn` 으로 유지되어 엄격한 hook dependency 검사를 원하는 팀에는 유효한 선택지입니다 (deprecated 아님). 다만 stable 값(`queryClient`, setter, 커스텀 훅 반환값)에 대한 false positive 가 자주 발생해 일반 프로젝트엔 1.0.8 을 권장합니다.
 > - **`1.0.5`** — `jsx-no-leaked-render` 가 `{x && <Y/>}` 을 `{x ? <Y/> : null}` 로 강제 변환하는 불편이 있어 deprecated.
 > - **`1.0.4`** — `{x && <Y/>}` 을 `{Boolean(x) && <Y/>}` 로 바꾸던 오토픽스 체인 이슈로 deprecated.
-> - **`1.0.3` 은 존재하지 않습니다** — npm 에 publish 되지 않은 내부 준비 버전입니다. `1.0.2 → 1.0.4 → 1.0.5 → 1.0.6 → 1.0.7` 순서로 릴리스되었습니다. 자세한 히스토리는 [CHANGELOG](./CHANGELOG.md) 참고.
+> - **`1.0.3` 은 존재하지 않습니다** — npm 에 publish 되지 않은 내부 준비 버전입니다. `1.0.2 → 1.0.4 → 1.0.5 → 1.0.6 → 1.0.7 → 1.0.8` 순서로 릴리스되었습니다. 자세한 히스토리는 [CHANGELOG](./CHANGELOG.md) 참고.
 
 ## Config Structure
 
@@ -64,7 +65,8 @@ npm install -D @next/eslint-plugin-next
 > **참고**:
 > - 이 패키지는 `peerDependencies`를 사용하므로, 필수 의존성을 별도로 설치해야 합니다.
 > - `@next/eslint-plugin-next`, `eslint-import-resolver-typescript`는 `peerDependenciesMeta`에서 `optional: true`로 지정되어 있어, 사용하지 않는 프로젝트에서는 설치 생략 가능합니다.
-> - v1.0.7 부터 모든 peerDependencies 가 `>=X.0.0` 패턴으로 지정되어, 각 플러그인의 **미래 major 버전도 자동 호환** (`eslint-plugin-react-hooks` v4/v5+, `eslint-plugin-unused-imports` v3/v4+, `@next/eslint-plugin-next` v14/v15/v16+ 등). 실제 호환성 이슈 발견 시 사후에 상한 지정.
+> - v1.0.7 부터 대부분의 peerDependencies 가 `>=X.0.0` 패턴으로 지정되어, 각 플러그인의 **미래 major 버전도 자동 호환** (`eslint-plugin-react-hooks` v4/v5+, `eslint-plugin-unused-imports` v3/v4+, `@next/eslint-plugin-next` v14/v15/v16+ 등).
+> - v1.0.8 부터 `eslint`, `@eslint/js` 는 `>=9.0.0 <10.0.0` 으로 상한이 지정됩니다 — `eslint-plugin-react@7.x`, `eslint-plugin-jsx-a11y`, `eslint-plugin-import` 등 주요 플러그인이 아직 eslint 10 API 를 지원하지 않기 때문입니다. 생태계가 eslint 10 을 지원하면 상한 완화 재검토 예정.
 
 ## 사용 방법
 

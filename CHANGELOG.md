@@ -11,6 +11,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > - **1.0.5**: `jsx-no-leaked-render` 가 `ternary` 전략으로 autofix 되어 코드가 `{x ? <Y/> : null}` 로 강제 변환됨. 팀 코드 스타일과 상충되어 1.0.6 에서 해당 규칙을 off 처리. 1.0.7 이상 사용 권장.
 > - **1.0.6**: `react-hooks/exhaustive-deps` 를 `warn` 으로 유지하여 엄격한 hook dependency 검사가 가능한 유효한 선택지입니다. 다만 stable 값(queryClient, setter, 커스텀 훅 반환값)에 대한 false positive 경고가 자주 발생할 수 있어, 일반 프로젝트엔 1.0.7 사용을 권장합니다. **deprecated 아님.**
 
+## [1.0.8] - 2026-04-24
+
+### Security
+
+- 보안 audit 대응: lockfile 의 취약 transitive 의존성 패치 버전으로 갱신
+  - `flatted`: 3.3.4 → 3.4.2 (GHSA-25h7-pfq9-p65f DoS, GHSA-rf6f-7fwh-wjgh Prototype Pollution)
+  - `brace-expansion`: 1.1.12 → 1.1.14, 5.0.4 → 5.0.5 (GHSA-f886-m6hf-6m8v)
+  - `picomatch`: 2.3.1 → 2.3.2, 4.0.3 → 4.0.4 (GHSA-c2c7-rcm5-vvqj, GHSA-3v7f-55p6-f55p)
+- `pnpm audit` clean 상태로 복구
+
+### Changed
+
+- **peerDependencies `eslint`, `@eslint/js` 상한 `<10.0.0` 추가**
+  - `eslint-plugin-react@7.37.x`, `eslint-plugin-jsx-a11y`, `eslint-plugin-import` 등 주요 플러그인이 아직 eslint 10 API (`context.getFilename` 제거 등) 미지원
+  - 현 생태계 호환 상한을 peerDep 에 명시적으로 반영 (`>=9.0.0` → `>=9.0.0 <10.0.0`)
+  - 플러그인 생태계가 eslint 10 을 지원하면 상한 완화 재검토
+
+---
+
 ## [1.0.7] - 2026-04-21
 
 ### Changed

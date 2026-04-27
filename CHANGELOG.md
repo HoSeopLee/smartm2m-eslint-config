@@ -15,11 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-- 보안 audit 대응: lockfile 의 취약 transitive 의존성 패치 버전으로 갱신
-  - `flatted`: 3.3.4 → 3.4.2 (GHSA-25h7-pfq9-p65f DoS, GHSA-rf6f-7fwh-wjgh Prototype Pollution)
-  - `brace-expansion`: 1.1.12 → 1.1.14, 5.0.4 → 5.0.5 (GHSA-f886-m6hf-6m8v)
-  - `picomatch`: 2.3.1 → 2.3.2, 4.0.3 → 4.0.4 (GHSA-c2c7-rcm5-vvqj, GHSA-3v7f-55p6-f55p)
-- `pnpm audit` clean 상태로 복구
+- 보안 audit 환경 기록: 메인테이너 lock 환경 기준 transitive 의존성이 패치 버전으로 정상 resolve 되는지 확인 (`pnpm audit` clean)
+  - `flatted` 3.4.2 (GHSA-25h7-pfq9-p65f DoS, GHSA-rf6f-7fwh-wjgh Prototype Pollution)
+  - `brace-expansion` 1.1.14 / 5.0.5 (GHSA-f886-m6hf-6m8v)
+  - `picomatch` 2.3.2 / 4.0.4 (GHSA-c2c7-rcm5-vvqj, GHSA-3v7f-55p6-f55p)
+- 본 패키지는 lockfile 을 publish 하지 않으므로 위 transitive 패치 버전은 **upstream publish 결과로 사용자도 fresh install 시 자동 반영**됩니다. v1.0.7 환경에서도 동일하게 받습니다 (이번 릴리스가 강제하는 사항이 아님).
 
 ### Changed
 

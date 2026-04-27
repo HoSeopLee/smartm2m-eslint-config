@@ -76,7 +76,8 @@
     "next.js",
     "presets/**/*.js",
     "rules/**/*.js",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ]
 }
 

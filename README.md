@@ -9,8 +9,20 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 > ⚠️ **ESLint 9 Flat Config 전용**  
 > 이 설정은 ESLint 9 Flat Config 형식을 사용하며, `.eslintrc`(레거시) 형식은 지원하지 않습니다.
 
+> ⚠️ **v1.0.7 → v1.0.8 업그레이드 필수 작업**  
+> `eslint-plugin-import` 가 활발히 유지되는 fork [`eslint-plugin-import-x`](https://github.com/un-ts/eslint-plugin-import-x) 로 교체되었습니다.
+>
+> **사유**: 본가 `eslint-plugin-import` 의 release/PR 처리 정체 (1 년+ 릴리스 부재, eslint 10 등 신규 API 대응 미진). fork `import-x` 는 정기 릴리스 + ESLint 9 flat config 친화 API 로 생태계가 이전 중.
+>
+> ```bash
+> npm uninstall eslint-plugin-import eslint-import-resolver-typescript
+> npm install -D eslint-plugin-import-x
+> ```
+>
+> 자세한 가이드는 [CHANGELOG v1.0.8](./CHANGELOG.md#108---2026-04-24) 참고.
+
 > 📌 **버전 사용 안내 (2026-04-24 기준)**
-> - **`>=1.0.8` 사용 권장** — 보안 audit 대응 (`flatted`, `brace-expansion`, `picomatch` 취약 transitive 패치 버전 반영) + `eslint`, `@eslint/js` peer 상한 `<10.0.0` 명시 (현 플러그인 생태계 호환 상태 정확히 반영).
+> - **`>=1.0.8` 사용 권장** — 보안 audit 대응 (`flatted`, `brace-expansion`, `picomatch` 취약 transitive 패치 버전 반영) + `eslint`, `@eslint/js` peer 상한 `<10.0.0` 명시 + **`eslint-plugin-import` → `eslint-plugin-import-x` 전환** (1.0.7 사용자는 의존성 교체 필요, 위 ⚠️ 블록 참고).
 > - **`1.0.7`** — `react-hooks/exhaustive-deps` off + peerDependencies `>=X.0.0` 패턴 통일. 보안 audit 대응 전 버전.
 > - **`1.0.6`** — `react-hooks/exhaustive-deps` 가 `warn` 으로 유지되어 엄격한 hook dependency 검사를 원하는 팀에는 유효한 선택지입니다 (deprecated 아님). 다만 stable 값(`queryClient`, setter, 커스텀 훅 반환값)에 대한 false positive 가 자주 발생해 일반 프로젝트엔 1.0.8 을 권장합니다.
 > - **`1.0.5`** — `jsx-no-leaked-render` 가 `{x && <Y/>}` 을 `{x ? <Y/> : null}` 로 강제 변환하는 불편이 있어 deprecated.

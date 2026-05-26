@@ -13,6 +13,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.8] - 2026-04-24
 
+> ⚠️ **v1.0.7 → v1.0.8 업그레이드 시 필수 작업 (Breaking peerDep 변경)**
+>
+> `eslint-plugin-import` 가 활발히 유지되는 fork `eslint-plugin-import-x` 로 교체되었습니다.
+>
+> **교체 사유**
+> - 본가 `eslint-plugin-import` 의 **유지보수 정체** — 최근 release 가 1 년 이상 부재, 누적된 PR/이슈 처리 지연, eslint 10 / TypeScript 신규 버전 대응 미진
+> - fork `eslint-plugin-import-x` ([un-ts/eslint-plugin-import-x](https://github.com/un-ts/eslint-plugin-import-x)) 는 동일한 규칙 베이스 위에서 정기 릴리스 + TypeScript-first 리졸버 + ESLint 9 flat config 친화적 API 를 제공, 생태계가 점차 이전 중
+> - 본 패키지는 어차피 `no-duplicates`, `no-self-import` 두 규칙만 사용하므로 마이그레이션 비용 대비 유지보수 안정성 이득이 큼
+>
+> **업그레이드 명령**
+>
+> ```bash
+> npm uninstall eslint-plugin-import eslint-import-resolver-typescript
+> npm install -D eslint-plugin-import-x
+> ```
+>
+> consumer 의 `eslint.config.js` 에서 `import/*` 규칙을 직접 override 한 적이 있다면 prefix 를 `import-x/*` 로 변경하세요. (이 패키지가 활성화하는 import 규칙은 `import-x/no-duplicates`, `import-x/no-self-import` 2 개뿐이라 lint 결과 자체는 동일합니다.)
+
 ### Security
 
 - 보안 audit 환경 기록: 메인테이너 lock 환경 기준 transitive 의존성이 패치 버전으로 정상 resolve 되는지 확인 (`pnpm audit` clean)
@@ -24,9 +42,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **peerDependencies `eslint`, `@eslint/js` 상한 `<10.0.0` 추가**
-  - `eslint-plugin-react@7.37.x`, `eslint-plugin-jsx-a11y`, `eslint-plugin-import` 등 주요 플러그인이 아직 eslint 10 API (`context.getFilename` 제거 등) 미지원
+  - `eslint-plugin-react@7.37.x`, `eslint-plugin-jsx-a11y` 등 주요 플러그인이 아직 eslint 10 API (`context.getFilename` 제거 등) 미지원
   - 현 생태계 호환 상한을 peerDep 에 명시적으로 반영 (`>=9.0.0` → `>=9.0.0 <10.0.0`)
   - 플러그인 생태계가 eslint 10 을 지원하면 상한 완화 재검토
+
+- **`eslint-plugin-import` → [`eslint-plugin-import-x`](https://github.com/un-ts/eslint-plugin-import-x) 전환**
+  - 본가 `eslint-plugin-import` 는 최근 release/PR 처리가 지연되어 사실상 유지보수 정체 상태. 활발히 유지되는 fork 인 `eslint-plugin-import-x` 로 이전
+  - Plugin key / 규칙 prefix 변경: `import` → `import-x` (예: `import-x/no-duplicates`, `import-x/no-self-import`, `import-x/order` …)
+  - 본 패키지에서 실제 활성화 중인 import 규칙은 `no-duplicates`, `no-self-import` **2 개뿐**이라 lint 결과 자체는 동일. 나머지 `import-x/*` 규칙은 종전과 같이 모두 `off`
+  - resolver 의존 규칙을 사용하지 않으므로 `settings.import/resolver` 블록 제거. optional peerDep `eslint-import-resolver-typescript` 도 함께 제거
+  - peerDep: `eslint-plugin-import: >=2.29.0` → `eslint-plugin-import-x: >=4.0.0`
+  - **Consumer 마이그레이션**: `npm uninstall eslint-plugin-import` 후 `npm i -D eslint-plugin-import-x`. consumer 의 `eslint.config.js` 에서 `import/*` 규칙을 직접 override 한 경우 prefix 를 `import-x/*` 로 변경 필요
 
 ---
 

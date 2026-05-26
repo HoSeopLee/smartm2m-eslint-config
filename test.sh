@@ -27,7 +27,7 @@ if [ ! -d "node_modules" ] || [ ! -d "node_modules/@eslint" ]; then
 		'@next/eslint-plugin-next@^15.0.0' \
 		'eslint@^9.0.0' \
 		'eslint-config-prettier@^9.0.0' \
-		'eslint-plugin-import@^2.29.0' \
+		'eslint-plugin-import-x@^4.0.0' \
 		'eslint-plugin-jsx-a11y@^6.9.0' \
 		'eslint-plugin-no-relative-import-paths@^1.5.0' \
 		'eslint-plugin-prettier@^5.1.0' \

@@ -1,4 +1,4 @@
-// @expect-pass: react/jsx-no-target-blank
+// @expect-pass: smartm2m-react/no-unsafe-target-blank
 // v1.0.4: allowReferrer: true 적용 (noopener만 있어도 통과)
 import React from 'react';
 

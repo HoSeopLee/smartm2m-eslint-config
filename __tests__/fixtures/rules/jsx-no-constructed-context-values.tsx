@@ -1,4 +1,4 @@
-// @expect-rule: react/jsx-no-constructed-context-values
+// @expect-rule: @eslint-react/no-unstable-context-value
 // v1.0.4: Context Provider에 인라인 객체/배열 전달 방지 (불필요한 re-render)
 import React, { createContext } from 'react';
 

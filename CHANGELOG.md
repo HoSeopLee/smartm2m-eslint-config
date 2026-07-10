@@ -6,10 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 > **버전 히스토리 참고사항**
+>
 > - **1.0.3**: npm에 publish 되지 않은 내부 준비(prep) 버전. `package.json` 에만 존재했고, `presets/` + `rules/` 구조 리팩터 작업을 하다가 다듬기 후 1.0.4 로 통합 발행됨. npm 레지스트리에서는 조회 불가.
 > - **1.0.4**: 공개 발행되었으나 `no-implicit-coercion` + `react/jsx-no-leaked-render`(coerce) 오토픽스 체인이 `{x && <Y/>}` → `{Boolean(x) && <Y/>}` 형태로 코드를 장황하게 변환하는 이슈가 있음. 1.0.7 이상 사용 권장 (`npm deprecate` 처리).
 > - **1.0.5**: `jsx-no-leaked-render` 가 `ternary` 전략으로 autofix 되어 코드가 `{x ? <Y/> : null}` 로 강제 변환됨. 팀 코드 스타일과 상충되어 1.0.6 에서 해당 규칙을 off 처리. 1.0.7 이상 사용 권장.
 > - **1.0.6**: `react-hooks/exhaustive-deps` 를 `warn` 으로 유지하여 엄격한 hook dependency 검사가 가능한 유효한 선택지입니다. 다만 stable 값(queryClient, setter, 커스텀 훅 반환값)에 대한 false positive 경고가 자주 발생할 수 있어, 일반 프로젝트엔 1.0.7 사용을 권장합니다. **deprecated 아님.**
+
+## [1.1.0] - 2026-07-10
+
+### Changed
+
+- `eslint-plugin-react`를 ESLint 9 호환 유지보수 버전인 `@eslint-react/eslint-plugin@^2.13.0`으로 교체
+- 기존 `react/*` 규칙은 대응하는 `@eslint-react/*` 규칙으로 전환. `target="_blank"`의 `rel="noopener"` 허용 정책은 로컬 rule로 유지
+- `@eslint-react/eslint-plugin`의 peer 요구사항에 맞춰 `typescript` peerDependency 추가
+
+### Breaking
+
+- consumer 설정에서 직접 override하던 `react/*` 규칙은 `@eslint-react/*` 규칙명으로 변경 필요
 
 ## [1.0.8] - 2026-04-24
 
@@ -18,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > `eslint-plugin-import` 가 활발히 유지되는 fork `eslint-plugin-import-x` 로 교체되었습니다.
 >
 > **교체 사유**
+>
 > - 본가 `eslint-plugin-import` 의 **유지보수 정체** — 최근 release 가 1 년 이상 부재, 누적된 PR/이슈 처리 지연, eslint 10 / TypeScript 신규 버전 대응 미진
 > - fork `eslint-plugin-import-x` ([un-ts/eslint-plugin-import-x](https://github.com/un-ts/eslint-plugin-import-x)) 는 동일한 규칙 베이스 위에서 정기 릴리스 + TypeScript-first 리졸버 + ESLint 9 flat config 친화적 API 를 제공, 생태계가 점차 이전 중
 > - 본 패키지는 어차피 `no-duplicates`, `no-self-import` 두 규칙만 사용하므로 마이그레이션 비용 대비 유지보수 안정성 이득이 큼

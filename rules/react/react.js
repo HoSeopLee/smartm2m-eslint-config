@@ -2,6 +2,20 @@ import eslintReact from "@eslint-react/eslint-plugin";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
+const getStaticAttributeValue = (attribute) => {
+  const value = attribute.value;
+  if (!value) return true;
+  if (value.type === "Literal") return value.value;
+  if (value.type !== "JSXExpressionContainer") return undefined;
+
+  const expression = value.expression;
+  if (expression.type === "Literal") return expression.value;
+  if (expression.type === "TemplateLiteral" && expression.expressions.length === 0)
+    return expression.quasis[0]?.value.cooked;
+
+  return undefined;
+};
+
 const legacyReactRules = {
   rules: {
     "no-unsafe-target-blank": {
@@ -27,7 +41,7 @@ const legacyReactRules = {
                 )
                 .map((attribute) => [
                   attribute.name.name,
-                  attribute.value?.value,
+                  getStaticAttributeValue(attribute),
                 ]),
             );
             if (

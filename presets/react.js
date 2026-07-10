@@ -39,8 +39,6 @@ export default tseslint.config([
 			parserOptions: {
 				ecmaFeatures: { jsx: true },
 				sourceType: 'module',
-				project: true,
-				tsconfigRootDir: process.cwd(),
 			},
 		},
 		settings: {
@@ -65,7 +63,7 @@ export default tseslint.config([
 			...prettierConfig.plugins,
 		},
 		languageOptions: {
-			ecmaVersion: 2020,
+			ecmaVersion: 'latest',
 			globals: browserGlobals,
 			parserOptions: {
 				ecmaFeatures: { jsx: true },

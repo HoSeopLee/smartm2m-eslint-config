@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [18, 20, 22]
+        node: [20, 22, 24]
 
     steps:
       - name: Checkout
@@ -31,14 +31,5 @@ jobs:
       - name: Install optional peer dependencies (for full test coverage)
         run: npm install --no-save --no-package-lock @next/eslint-plugin-next
 
-      - name: Load test (test-load.js)
-        run: npm run test:load
-
-      - name: Lint config test (test-config.js)
-        run: npm run test:lint
-
-      - name: Import-sort test
-        run: npm run test:import-sort
-
-      - name: Rule fixtures test
-        run: npm run test:rules
+      - name: Test
+        run: npm test

@@ -27,7 +27,7 @@ export default [
 			...prettierConfig.plugins,
 		},
 		languageOptions: {
-			ecmaVersion: 2020,
+			ecmaVersion: 'latest',
 			globals: browserGlobals,
 			parserOptions: { sourceType: 'module' },
 		},

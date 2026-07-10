@@ -21,14 +21,15 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 >
 > 자세한 가이드는 [CHANGELOG v1.0.8](./CHANGELOG.md#108---2026-04-24) 참고.
 
-> 📌 **버전 사용 안내 (2026-04-24 기준)**
+> 📌 **버전 사용 안내 (2026-07-10 기준)**
 >
-> - **`>=1.0.8` 사용 권장** — 보안 audit 대응 (`flatted`, `brace-expansion`, `picomatch` 취약 transitive 패치 버전 반영) + `eslint`, `@eslint/js` peer 상한 `<10.0.0` 명시 + **`eslint-plugin-import` → `eslint-plugin-import-x` 전환** (1.0.7 사용자는 의존성 교체 필요, 위 ⚠️ 블록 참고).
+> - **`1.1.0` 사용 권장** — `eslint-plugin-react`를 ESLint 9 호환 `@eslint-react/eslint-plugin@2.x`로 전환했습니다. 소비처에서 직접 override한 `react/*` 규칙은 새 `@eslint-react/*` 규칙명으로 바꿔야 합니다.
+> - **`1.0.8`** — 보안 audit 대응 (`flatted`, `brace-expansion`, `picomatch` 취약 transitive 패치 버전 반영) + `eslint`, `@eslint/js` peer 상한 `<10.0.0` 명시 + **`eslint-plugin-import` → `eslint-plugin-import-x` 전환** (1.0.7 사용자는 의존성 교체 필요, 위 ⚠️ 블록 참고).
 > - **`1.0.7`** — `react-hooks/exhaustive-deps` off + peerDependencies `>=X.0.0` 패턴 통일. 보안 audit 대응 전 버전.
 > - **`1.0.6`** — `react-hooks/exhaustive-deps` 가 `warn` 으로 유지되어 엄격한 hook dependency 검사를 원하는 팀에는 유효한 선택지입니다 (deprecated 아님). 다만 stable 값(`queryClient`, setter, 커스텀 훅 반환값)에 대한 false positive 가 자주 발생해 일반 프로젝트엔 1.0.8 을 권장합니다.
 > - **`1.0.5`** — `jsx-no-leaked-render` 가 `{x && <Y/>}` 을 `{x ? <Y/> : null}` 로 강제 변환하는 불편이 있어 deprecated.
 > - **`1.0.4`** — `{x && <Y/>}` 을 `{Boolean(x) && <Y/>}` 로 바꾸던 오토픽스 체인 이슈로 deprecated.
-> - **`1.0.3` 은 존재하지 않습니다** — npm 에 publish 되지 않은 내부 준비 버전입니다. `1.0.2 → 1.0.4 → 1.0.5 → 1.0.6 → 1.0.7 → 1.0.8` 순서로 릴리스되었습니다. 자세한 히스토리는 [CHANGELOG](./CHANGELOG.md) 참고.
+> - **`1.0.3` 은 존재하지 않습니다** — npm 에 publish 되지 않은 내부 준비 버전입니다. `1.0.2 → 1.0.4 → 1.0.5 → 1.0.6 → 1.0.7 → 1.0.8 → 1.1.0` 순서로 릴리스되었습니다. 자세한 히스토리는 [CHANGELOG](./CHANGELOG.md) 참고.
 
 ## Config Structure
 

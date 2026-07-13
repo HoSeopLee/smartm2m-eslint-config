@@ -12,7 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > - **1.0.5**: `jsx-no-leaked-render` 가 `ternary` 전략으로 autofix 되어 코드가 `{x ? <Y/> : null}` 로 강제 변환됨. 팀 코드 스타일과 상충되어 1.0.6 에서 해당 규칙을 off 처리. 1.0.7 이상 사용 권장.
 > - **1.0.6**: `react-hooks/exhaustive-deps` 를 `warn` 으로 유지하여 엄격한 hook dependency 검사가 가능한 유효한 선택지입니다. 다만 stable 값(queryClient, setter, 커스텀 훅 반환값)에 대한 false positive 경고가 자주 발생할 수 있어, 일반 프로젝트엔 1.0.7 사용을 권장합니다. **deprecated 아님.**
 
-## [Unreleased]
+## [1.1.1] - 2026-07-13
+
+### Upgrade notes
+
+- 기본 preset은 더 이상 `parserOptions.project`를 강제하지 않음. 소비자 설정에서 type-aware `typescript-eslint` 규칙을 추가하고 기존의 암묵적 tsconfig 탐색에 의존했다면 `projectService: true` 또는 명시적인 `project` 경로를 설정해야 함
 
 ### Changed
 

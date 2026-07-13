@@ -77,6 +77,7 @@ npm install -D @next/eslint-plugin-next
 >
 > - 패키지 매니저마다 peer dependency 처리 방식이 다르므로, 위에 나열한 peer를 소비자 프로젝트에 명시적으로 설치하는 것을 권장합니다.
 > - `@next/eslint-plugin-next` 는 `peerDependenciesMeta`에서 `optional: true`로 지정되어 있어, 사용하지 않는 프로젝트에서는 설치 생략 가능합니다.
+> - Next.js 프레임워크와 플러그인의 major가 반드시 같을 필요는 없지만, 플러그인 14.x는 ESLint 9을 지원하지 않아 제외합니다. 이 패키지에서는 플러그인 15.x 또는 16.x를 사용하세요.
 > - peerDependencies는 검증한 major 범위에만 상한을 열어 둡니다. 새 major는 호환성 테스트 후 지원 범위를 확대합니다.
 > - `@eslint-react/eslint-plugin@2.13.0` 은 ESLint 9와 Node.js 20.19+를 지원합니다. ESLint 9를 유지하는 현재 패키지와의 호환을 위해 2.x로 고정합니다.
 > - v1.0.8 부터 `eslint`, `@eslint/js` 는 `>=9.0.0 <10.0.0` 으로 상한이 지정됩니다 — `eslint-plugin-jsx-a11y`가 아직 eslint 10 API 를 지원하지 않기 때문입니다. 생태계가 eslint 10 을 지원하면 상한 완화 재검토 예정.

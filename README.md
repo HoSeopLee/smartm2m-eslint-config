@@ -78,6 +78,7 @@ npm install -D @next/eslint-plugin-next
 >
 > - Package managers handle peer dependencies differently, so explicitly installing the listed peers in the consumer project is recommended.
 > - `@next/eslint-plugin-next` is optional through `peerDependenciesMeta` and may be omitted outside Next.js projects.
+> - The Next.js framework and plugin majors do not have to match, but plugin 14.x is excluded because ESLint 9 support starts with 15.x. Use plugin 15.x or 16.x with this package.
 > - Peer dependency upper bounds cover only tested major versions. Support for a new major is added after compatibility testing.
 > - `@eslint-react/eslint-plugin@2.13.0` supports ESLint 9 and Node.js 20.19+. The package stays on 2.x while the v1 line remains on ESLint 9.
 > - Since v1.0.8, `eslint` and `@eslint/js` are limited to `>=9.0.0 <10.0.0`. `eslint-plugin-jsx-a11y` does not yet officially support ESLint 10, so ESLint 10 support remains deferred until the plugin ecosystem is compatible.

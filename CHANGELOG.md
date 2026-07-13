@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Node.js 최소 버전을 `>=20.19.0`으로 명시하고 CI 대상을 Node.js 20/22/24로 조정
 - peerDependencies를 검증한 major 범위로 제한
 - ESLint 9 호환 하한에 맞춰 `eslint-plugin-react-hooks >=5`, `eslint-plugin-unused-imports >=4`로 조정하고 Prettier 3 peer를 명시
+- ESLint 9을 지원하는 실제 하한에 맞춰 `eslint-plugin-jsx-a11y >=6.10.0`으로 조정
+- 실제 사용 중인 옵션과 ESLint 9 호환 하한에 맞춰 `eslint-plugin-no-relative-import-paths >=1.6.0`, `@next/eslint-plugin-next >=15.0.0`으로 조정
 - JavaScript parser의 `ecmaVersion`을 `latest`로 통일
 - `npm test`가 설정 로드, 실제 lint, import 정렬, 규칙 fixture 검사를 모두 실행하도록 보강
 - CI에 최소 지원 peer 조합과 허용 범위 내 최신 peer 조합 매트릭스 추가
@@ -28,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - type-aware 규칙 없이 `project: true`를 강제해 tsconfig 외부 파일에서 parsing error가 발생하던 문제 수정
 - `smartm2m-eslint-config/ts`를 parser와 plugin이 포함된 독립 Flat Config 객체로 수정
+- `typescript-eslint@8.0.0`에서도 preset이 중첩 배열이 되지 않도록 React/Next 구성을 표준 Flat Config 배열로 직접 export
 - React 플러그인 전환 후 남아 있던 `react/jsx-no-leaked-render` 규칙명을 현재 `@eslint-react/no-leaked-conditional-rendering`으로 정정 (`off` 유지)
 - `target={"_blank"}` 같은 정적 JSX 표현식에서도 `noopener` 누락을 감지하도록 보강
 - README의 중첩 Flat Config 배열 예제 수정

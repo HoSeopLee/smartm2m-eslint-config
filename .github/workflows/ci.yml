@@ -39,7 +39,7 @@ jobs:
 
       - name: Install latest optional Next.js peer
         if: matrix.dependencies == 'latest'
-        run: npm install --no-save --no-package-lock '@next/eslint-plugin-next@>=14.0.0 <17.0.0'
+        run: npm install --no-save --no-package-lock '@next/eslint-plugin-next@>=15.0.0 <17.0.0'
 
       - name: Install minimum supported dependencies
         if: matrix.dependencies == 'minimum'
@@ -47,12 +47,12 @@ jobs:
           npm install --no-save --no-package-lock \
             '@eslint/js@9.0.0' \
             '@eslint-react/eslint-plugin@2.13.0' \
-            '@next/eslint-plugin-next@14.0.0' \
+            '@next/eslint-plugin-next@15.0.0' \
             'eslint@9.0.0' \
             'eslint-config-prettier@9.0.0' \
             'eslint-plugin-import-x@4.0.0' \
-            'eslint-plugin-jsx-a11y@6.9.0' \
-            'eslint-plugin-no-relative-import-paths@1.5.0' \
+            'eslint-plugin-jsx-a11y@6.10.0' \
+            'eslint-plugin-no-relative-import-paths@1.6.0' \
             'eslint-plugin-prettier@5.1.0' \
             'eslint-plugin-react-hooks@5.0.0' \
             'eslint-plugin-react-refresh@0.4.0' \

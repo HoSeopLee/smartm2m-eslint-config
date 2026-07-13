@@ -10,7 +10,7 @@ import nextConfig from '../rules/next/next.js';
 import a11yConfig from '../rules/accessibility/a11y.js';
 import prettierConfig from '../rules/formatting/prettier.js';
 
-export default tseslint.config([
+export default [
 	{
 		ignores: [
 			'dist/**',
@@ -102,4 +102,4 @@ export default tseslint.config([
 			'react-refresh/only-export-components': 'off',
 		},
 	},
-]);
+];

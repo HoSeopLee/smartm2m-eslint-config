@@ -26,7 +26,7 @@ Shared ESLint configuration for SmartM2M projects.
 | TypeScript                        | `>=4.8.4 <6`    | TypeScript 6 is planned for the v2 line    |
 | `typescript-eslint`               | `>=8 <9`        | Both minimum and latest peers are tested   |
 | `@eslint-react/eslint-plugin`     | `^2.13.0`       | ESLint 9-compatible v1 integration         |
-| `@next/eslint-plugin-next`        | `>=14 <17`      | Optional; required only for the Next preset |
+| `@next/eslint-plugin-next`        | `>=15 <17`      | Optional; required only for the Next preset |
 | ESLint 10                         | Not supported   | Waiting for official `eslint-plugin-jsx-a11y` support |
 
 CI tests the declared minimum dependency versions on Node.js 20.19 and the latest allowed dependency versions on Node.js 20, 22, and 24.

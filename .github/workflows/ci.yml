@@ -35,11 +35,7 @@ jobs:
 
       - name: Install latest supported dependencies
         if: matrix.dependencies == 'latest'
-        run: npm install --no-package-lock
-
-      - name: Install latest optional Next.js peer
-        if: matrix.dependencies == 'latest'
-        run: npm install --no-save --no-package-lock '@next/eslint-plugin-next@>=15.0.0 <17.0.0'
+        run: npm install --no-package-lock '@next/eslint-plugin-next@>=15.0.0 <17.0.0'
 
       - name: Install minimum supported dependencies
         if: matrix.dependencies == 'minimum'

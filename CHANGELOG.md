@@ -27,8 +27,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - type-aware 규칙 없이 `project: true`를 강제해 tsconfig 외부 파일에서 parsing error가 발생하던 문제 수정
 - `smartm2m-eslint-config/ts`를 parser와 plugin이 포함된 독립 Flat Config 객체로 수정
+- React 플러그인 전환 후 남아 있던 `react/jsx-no-leaked-render` 규칙명을 현재 `@eslint-react/no-leaked-conditional-rendering`으로 정정 (`off` 유지)
 - `target={"_blank"}` 같은 정적 JSX 표현식에서도 `noopener` 누락을 감지하도록 보강
 - README의 중첩 Flat Config 배열 예제 수정
+- 영문 `README.md`와 한국어 `README.ko.md`를 분리하고 언어 전환 링크 추가
 
 ## [1.1.0] - 2026-07-10
 

@@ -1,92 +1,95 @@
 # smartm2m-eslint-config
 
-SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
+**English** | [한국어](./README.ko.md)
 
-- React, Next.js, TypeScript, Prettier, 접근성(a11y) 규칙 포함
-- 📦 [npm 패키지](https://www.npmjs.com/package/smartm2m-eslint-config)
-- 🐙 [GitHub 저장소](https://github.com/HoSeopLee/smartm2m-eslint-config)
+Shared ESLint configuration for SmartM2M projects.
 
-> ⚠️ **ESLint 9 Flat Config 전용**  
-> 이 설정은 ESLint 9 Flat Config 형식을 사용하며, `.eslintrc`(레거시) 형식은 지원하지 않습니다.
+- Includes rules for React, Next.js, TypeScript, Prettier, and accessibility (a11y)
+- 📦 [npm package](https://www.npmjs.com/package/smartm2m-eslint-config)
+- 🐙 [GitHub repository](https://github.com/HoSeopLee/smartm2m-eslint-config)
 
-> 📌 **버전 사용 안내 (2026-07-10 기준)**
+> ⚠️ **ESLint 9 Flat Config only**
+> This package uses the ESLint 9 Flat Config format. Legacy `.eslintrc` configurations are not supported.
+
+> 📌 **Version guidance (as of July 10, 2026)**
 >
-> - **`1.1.0` 사용 권장** — `eslint-plugin-react`를 ESLint 9 호환 `@eslint-react/eslint-plugin@2.x`로 전환했습니다. 소비처에서 직접 override한 `react/*` 규칙은 새 `@eslint-react/*` 규칙명으로 바꿔야 합니다.
-> - `1.0.7` 이하에서 업그레이드한다면 `eslint-plugin-import`를 `eslint-plugin-import-x`로 교체해야 합니다.
-> - 전체 버전 기록과 마이그레이션 절차는 [CHANGELOG](./CHANGELOG.md)를 확인하세요.
+> - **`1.1.0` is recommended** — `eslint-plugin-react` was replaced with the ESLint 9-compatible `@eslint-react/eslint-plugin@2.x`. Consumer overrides using `react/*` rule names must be migrated to the corresponding `@eslint-react/*` names.
+> - When upgrading from `1.0.7` or earlier, replace `eslint-plugin-import` with `eslint-plugin-import-x`.
+> - See the [CHANGELOG](./CHANGELOG.md) for the complete version history and migration notes.
 
-## Config Structure
+## Configuration structure
 
-이 패키지는 **presets**(조합된 설정)와 **rules**(도메인별 규칙)로 확장 가능한 구조입니다.
+The package separates composed **presets** from domain-specific **rule modules**, making it possible to use a complete setup or build a custom one.
 
-### Presets (프리셋)
+### Presets
 
-| Config                                 | 설명                                           |
-| -------------------------------------- | ---------------------------------------------- |
-| `smartm2m-eslint-config`               | 기본 (React preset re-export)                  |
-| `smartm2m-eslint-config/react`         | React 프로젝트용 전체 설정                     |
-| `smartm2m-eslint-config/next`          | Next.js 프로젝트용 전체 설정                   |
-| `smartm2m-eslint-config/presets/base`  | JS + import + prettier (React/TS 없음, 확장용) |
-| `smartm2m-eslint-config/presets/react` | React preset (react.js와 동일)                 |
-| `smartm2m-eslint-config/presets/next`  | Next.js preset (next.js와 동일)                |
-| `smartm2m-eslint-config/presets/full`  | 전체 규칙 (현재는 next와 동일)                 |
+| Config                                 | Description                                      |
+| -------------------------------------- | ------------------------------------------------ |
+| `smartm2m-eslint-config`               | Default export; re-exports the React preset      |
+| `smartm2m-eslint-config/react`         | Complete configuration for React projects       |
+| `smartm2m-eslint-config/next`          | Complete configuration for Next.js projects     |
+| `smartm2m-eslint-config/presets/base`  | JS + import + Prettier, without React/TypeScript |
+| `smartm2m-eslint-config/presets/react` | React preset; equivalent to `/react`             |
+| `smartm2m-eslint-config/presets/next`  | Next.js preset; equivalent to `/next`            |
+| `smartm2m-eslint-config/presets/full`  | Full configuration; currently equivalent to Next.js |
 
-### Rules (규칙 모듈)
+### Rule modules
 
-| Config                            | 설명            |
-| --------------------------------- | --------------- |
-| `smartm2m-eslint-config/ts`       | TypeScript 규칙 |
-| `smartm2m-eslint-config/import`   | Import 규칙     |
-| `smartm2m-eslint-config/a11y`     | 접근성 규칙     |
-| `smartm2m-eslint-config/prettier` | Prettier 통합   |
+| Config                            | Description          |
+| --------------------------------- | -------------------- |
+| `smartm2m-eslint-config/ts`       | TypeScript rules     |
+| `smartm2m-eslint-config/import`   | Import rules         |
+| `smartm2m-eslint-config/a11y`     | Accessibility rules  |
+| `smartm2m-eslint-config/prettier` | Prettier integration |
 
-내부 구조: `rules/base/`, `rules/typescript/`, `rules/react/`, `rules/next/`, `rules/accessibility/`, `rules/formatting/` 에서 규칙을 조합해 presets를 만듭니다.
+Internally, presets combine modules from `rules/base/`, `rules/typescript/`, `rules/react/`, `rules/next/`, `rules/accessibility/`, and `rules/formatting/`.
 
-## 설치
+## Installation
 
 ```bash
-# 1단계: 라이브러리 설치 (npm / yarn / pnpm)
+# Step 1: install this package (npm / Yarn / pnpm)
 npm install -D smartm2m-eslint-config
 # yarn add -D smartm2m-eslint-config
 # pnpm add -D smartm2m-eslint-config
 
-# 2단계: 필수 의존성 설치 (yarn/pnpm 사용 시 npm을 yarn 또는 pnpm으로 교체)
+# Step 2: install required peer dependencies
+# Replace npm with yarn or pnpm when needed.
 npm install -D @eslint/js @eslint-react/eslint-plugin@^2.13.0 eslint eslint-config-prettier eslint-plugin-import-x eslint-plugin-jsx-a11y eslint-plugin-no-relative-import-paths eslint-plugin-prettier eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-simple-import-sort eslint-plugin-unused-imports globals prettier typescript typescript-eslint
 
-# Next.js 프로젝트인 경우 추가 설치 (optional)
+# Next.js projects only (optional)
 npm install -D @next/eslint-plugin-next
 ```
 
-> **참고**:
+> **Notes**
 >
-> - 이 패키지는 `peerDependencies`를 사용하므로, 필수 의존성을 별도로 설치해야 합니다.
-> - `@next/eslint-plugin-next` 는 `peerDependenciesMeta`에서 `optional: true`로 지정되어 있어, 사용하지 않는 프로젝트에서는 설치 생략 가능합니다.
-> - peerDependencies는 검증한 major 범위에만 상한을 열어 둡니다. 새 major는 호환성 테스트 후 지원 범위를 확대합니다.
-> - `@eslint-react/eslint-plugin@2.13.0` 은 ESLint 9와 Node.js 20.19+를 지원합니다. ESLint 9를 유지하는 현재 패키지와의 호환을 위해 2.x로 고정합니다.
-> - v1.0.8 부터 `eslint`, `@eslint/js` 는 `>=9.0.0 <10.0.0` 으로 상한이 지정됩니다 — `eslint-plugin-jsx-a11y`가 아직 eslint 10 API 를 지원하지 않기 때문입니다. 생태계가 eslint 10 을 지원하면 상한 완화 재검토 예정.
-> - **`eslint-plugin-import` 는 사실상 유지보수 정체 상태라 활발히 유지되는 포크인 [`eslint-plugin-import-x`](https://github.com/un-ts/eslint-plugin-import-x) 로 교체**되었습니다. 규칙 prefix 는 `import-x/*`.
+> - Package managers handle peer dependencies differently, so explicitly installing the listed peers in the consumer project is recommended.
+> - `@next/eslint-plugin-next` is optional through `peerDependenciesMeta` and may be omitted outside Next.js projects.
+> - Peer dependency upper bounds cover only tested major versions. Support for a new major is added after compatibility testing.
+> - `@eslint-react/eslint-plugin@2.13.0` supports ESLint 9 and Node.js 20.19+. The package stays on 2.x while the v1 line remains on ESLint 9.
+> - Since v1.0.8, `eslint` and `@eslint/js` are limited to `>=9.0.0 <10.0.0`. `eslint-plugin-jsx-a11y` does not yet officially support ESLint 10, so ESLint 10 support remains deferred until the plugin ecosystem is compatible.
+> - `eslint-plugin-import` was replaced with the actively maintained [`eslint-plugin-import-x`](https://github.com/un-ts/eslint-plugin-import-x) fork. Import rule names use the `import-x/*` prefix.
 
-## 사용 방법
+## Usage
 
-### React 프로젝트
+### React projects
 
-프로젝트의 `eslint.config.js` (또는 `eslint.config.mjs`) 파일에서:
+In the project's `eslint.config.js` or `eslint.config.mjs`:
 
 ```javascript
-// 방법 1: 명시적으로 react 사용 (권장)
+// Option 1: explicit React entry point (recommended)
 import reactConfig from 'smartm2m-eslint-config/react';
 
 export default reactConfig;
 
-// 방법 2: 기본 export 사용 (하위 호환성)
+// Option 2: default export (backward compatibility)
 import eslintConfig from 'smartm2m-eslint-config';
 
 export default eslintConfig;
 ```
 
-### Next.js 프로젝트
+### Next.js projects
 
-Next.js 프로젝트의 경우 `smartm2m-eslint-config/next`를 사용하세요:
+Use the `/next` entry point for Next.js projects:
 
 ```javascript
 import nextConfig from "smartm2m-eslint-config/next";
@@ -94,15 +97,15 @@ import nextConfig from "smartm2m-eslint-config/next";
 export default nextConfig;
 ```
 
-> **참고**:
+> **Notes**
 >
-> - Next.js 설정은 React 설정을 기반으로 하며, Next.js 전용 규칙이 추가로 적용됩니다.
-> - 기본 export (`smartm2m-eslint-config`)는 React 설정을 반환하며, 하위 호환성을 위해 유지됩니다.
-> - 새로운 프로젝트에서는 명시적으로 `/react` 또는 `/next`를 사용하는 것을 권장합니다.
+> - The Next.js configuration includes the React configuration and adds Next.js-specific rules.
+> - The default `smartm2m-eslint-config` export returns the React preset for backward compatibility.
+> - New projects should import `/react` or `/next` explicitly.
 
-### 개별 모듈 사용
+### Individual modules
 
-프리셋은 Flat Config 배열이고, 규칙 모듈은 단일 config 객체입니다.
+Presets are Flat Config arrays, while rule modules are individual config objects.
 
 ```javascript
 import reactConfig from "smartm2m-eslint-config/react";
@@ -117,7 +120,7 @@ export default [
 ];
 ```
 
-`/ts`는 parser와 plugin을 포함한 독립 TypeScript config 객체이므로 단독으로 사용할 수 있습니다.
+The `/ts` entry point is a standalone TypeScript config object that includes its parser and plugin:
 
 ```javascript
 import tsConfig from "smartm2m-eslint-config/ts";
@@ -125,11 +128,11 @@ import tsConfig from "smartm2m-eslint-config/ts";
 export default [tsConfig];
 ```
 
-`/a11y`, `/import`, `/prettier`는 커스텀 프리셋 제작용 규칙 조각입니다. 일반 React/Next 프로젝트에서는 이미 기본 프리셋에 포함되어 있으므로 다시 추가할 필요가 없습니다.
+`/a11y`, `/import`, and `/prettier` are rule fragments intended for custom presets. They are already included in the standard React and Next.js presets and should not be added again there.
 
-### 설정 확장
+### Extending a preset
 
-기본 설정을 확장하여 커스터마이징할 수 있습니다:
+Add project-specific configuration after the preset to override it:
 
 ```javascript
 import eslintConfig from "smartm2m-eslint-config";
@@ -138,20 +141,19 @@ export default [
   ...eslintConfig,
   {
     rules: {
-      // 추가 규칙 또는 규칙 오버라이드
       "no-console": "error",
     },
   },
 ];
 ```
 
-### TypeScript 프로젝트 설정
+### TypeScript project setup
 
-기본 프리셋은 type-aware 규칙을 사용하지 않으므로 tsconfig 탐색을 강제하지 않습니다. 일반적인 React, Vite, Next.js 프로젝트는 별도 `parserOptions.project` 설정 없이 위의 React/Next 예제를 그대로 사용하면 됩니다.
+The standard presets do not enable type-aware rules and therefore do not force tsconfig discovery. Typical React, Vite, and Next.js projects can use the React or Next.js examples above without setting `parserOptions.project`.
 
-#### 프로젝트 규칙 덮어쓰기
+#### Overriding project rules
 
-프리셋 배열 뒤에 프로젝트 설정을 추가하면 기존 규칙을 덮어쓸 수 있습니다.
+Place project-specific rules after the preset:
 
 ```javascript
 import reactConfig from "smartm2m-eslint-config/react";
@@ -168,7 +170,7 @@ export default [
 ];
 ```
 
-Next.js에서는 import 경로만 변경합니다.
+For Next.js, only change the import path:
 
 ```javascript
 import nextConfig from "smartm2m-eslint-config/next";
@@ -183,9 +185,9 @@ export default [
 ];
 ```
 
-#### Type-aware 규칙 사용
+#### Enabling type-aware rules
 
-타입 정보가 필요한 `typescript-eslint` 규칙을 추가할 때만 `recommendedTypeChecked`와 `projectService`를 활성화합니다. `eslint.config.mjs`가 프로젝트 루트에 있다면 `import.meta.dirname`이 해당 프로젝트의 tsconfig 기준 경로가 됩니다.
+Enable `recommendedTypeChecked` and `projectService` only when adding `typescript-eslint` rules that require type information. When `eslint.config.mjs` is at the project root, `import.meta.dirname` provides the correct tsconfig root.
 
 ```javascript
 import reactConfig from "smartm2m-eslint-config/react";
@@ -210,9 +212,9 @@ export default [
 ];
 ```
 
-type-aware lint는 TypeScript Program을 생성하므로 기본 설정보다 느립니다. 실제로 타입 정보가 필요한 규칙을 사용할 때만 추가하세요.
+Type-aware linting creates a TypeScript Program and is slower than the standard setup. Enable it only when a rule actually requires type information.
 
-Vite처럼 타입 검사용 tsconfig를 명시해야 한다면 `projectService` 대신 `project`에 경로를 지정할 수 있습니다.
+For projects such as Vite that use a dedicated type-checking tsconfig, specify `project` instead of `projectService`:
 
 ```javascript
 import reactConfig from "smartm2m-eslint-config/react";
@@ -237,9 +239,9 @@ export default [
 ];
 ```
 
-Next.js는 보통 루트 `tsconfig.json`을 사용하므로 `project: ["./tsconfig.json"]`으로 바꾸면 됩니다.
+Next.js normally uses the root `tsconfig.json`; use `project: ["./tsconfig.json"]` in that case.
 
-예전 `eslint-plugin-react` 설정에서 사용하던 다음 옵션은 현재 패키지의 `@eslint-react/eslint-plugin`에는 필요하지 않습니다.
+The following legacy `eslint-plugin-react` setting is not required by the current `@eslint-react/eslint-plugin` integration:
 
 ```javascript
 settings: {
@@ -249,11 +251,11 @@ settings: {
 },
 ```
 
-소비자 프로젝트가 legacy `eslint-plugin-react`를 별도로 함께 사용한다면 그때만 프로젝트 override에 위 설정을 추가하세요.
+Add it to a project override only when the consumer project separately uses the legacy `eslint-plugin-react` package.
 
-#### 모노레포
+#### Monorepos
 
-모노레포에서는 각 앱 디렉터리에 `eslint.config.mjs`를 두고 해당 앱에서 lint를 실행하는 구성이 가장 단순합니다.
+The simplest monorepo setup places an `eslint.config.mjs` in each application directory and runs ESLint for each application:
 
 ```text
 apps/
@@ -270,11 +272,11 @@ pnpm --filter web exec eslint .
 pnpm --filter admin exec eslint .
 ```
 
-각 앱의 설정 파일은 위 React/Next 예제를 그대로 사용합니다. type-aware 규칙이 필요하면 각 앱 설정에서 `tsconfigRootDir: import.meta.dirname`을 지정하세요. 이렇게 하면 workspace 루트에서 명령을 실행해도 앱별 tsconfig 기준이 바뀌지 않습니다.
+Each app can use the React or Next.js examples above. For type-aware rules, set `tsconfigRootDir: import.meta.dirname` in each app's config. This keeps tsconfig resolution stable even when the command runs from the workspace root.
 
-#### Import alias 경로 변경
+#### Changing the import alias root
 
-기본 import alias는 `src` 기준 `@`입니다. 다른 구조라면 프로젝트 설정에서 변경합니다.
+The default import alias uses `@` with `src` as its root. Override the rule when a project uses a different directory structure:
 
 ```javascript
 import reactConfig from "smartm2m-eslint-config/react";
@@ -296,81 +298,80 @@ export default [
 ];
 ```
 
-> **Tailwind CSS 규칙이 필요한 경우**: `better-tailwindcss`, `eslint-plugin-tailwindcss` 같은 플러그인은 이 패키지에 포함되어 있지 않습니다. 프로젝트에서 직접 설치·설정해 `settings`/`plugins`/`rules`에 추가하세요.
+> **Tailwind CSS:** Tailwind-specific plugins such as `better-tailwindcss` and `eslint-plugin-tailwindcss` are not included. Install and configure them in the consumer project.
 
-> **참고**: `no-relative-import-paths` 규칙은 `rootDir: 'src'`, `prefix: '@'`를 기본값으로 사용합니다. 다른 구조를 사용하는 프로젝트는 해당 규칙을 오버라이드하세요.
+> **Import alias:** `no-relative-import-paths` defaults to `rootDir: 'src'` and `prefix: '@'`. Override the rule for other layouts.
 
-## 포함된 설정
+## Included rules
 
 ### React
 
-- React 및 React Hooks 관련 규칙
-- JSX 키, 중복 props, 정의되지 않은 JSX 사용 방지
-- 배열 인덱스를 key로 사용 시 경고
-- boolean prop과 Fragment 축약형 사용 권장
-- state 직접 변경 방지, deprecated API 사용 경고
-- Context Provider에 불안정한 객체/배열 전달 경고 (`@eslint-react/no-unstable-context-value`)
-  - `react/jsx-no-leaked-render` 는 **기본 off** (v1.0.6~). 필요한 프로젝트만 consumer 측에서 opt-in
-- Hooks 호출 규칙 강제 (`react-hooks/rules-of-hooks`, error)
-  - `react-hooks/exhaustive-deps` 는 **기본 off** (v1.0.7~, stable 값 false positive 과다). 엄격 검사 원하면 consumer 측에서 opt-in
-  - `react/jsx-no-leaked-render` 도 **기본 off** (v1.0.6~)
+- React and React Hooks rules
+- Missing JSX keys, duplicate props, and undefined JSX checks
+- Warning for array indices used as keys
+- Boolean prop and Fragment shorthand recommendations
+- Direct state mutation prevention and deprecated API warnings
+- Warning for unstable objects or arrays passed to Context providers (`@eslint-react/no-unstable-context-value`)
+- Hooks call order enforcement (`react-hooks/rules-of-hooks`, error)
+  - `react-hooks/exhaustive-deps` is **off by default** since v1.0.7 because of excessive false positives for stable values; consumers may opt in
+  - `@eslint-react/no-leaked-conditional-rendering` is **off by default**; consumers may opt in when needed
 
 ### TypeScript
 
-- TypeScript 관련 규칙 및 네이밍 컨벤션
-- `any` 사용 경고, 빈 함수 경고
-- `as const` 사용 권장
-- interface/type 앞에 I, T 접두사 사용 불가
+- TypeScript rules and naming conventions
+- Warnings for `any` and empty functions
+- `as const` preference
+- Disallows `I` and `T` prefixes for interfaces and types
 
-### 접근성 (a11y)
+### Accessibility (a11y)
 
-- JSX 접근성 규칙
-- 이미지 alt 텍스트, ARIA 속성 검증
-- 컨트롤과 레이블 연결, 클릭 이벤트와 키 이벤트 연결
-- 테이블 헤더의 `scope` 속성 검사
-- 비대화형 요소에 tabindex 사용 금지
+- JSX accessibility rules
+- Image alt text and ARIA attribute validation
+- Label/control associations and keyboard events for click handlers
+- `scope` validation for table headers
+- Prevents `tabIndex` on non-interactive elements
 
-### Import
+### Imports
 
-- Import 순서 자동 정렬 (`eslint-plugin-simple-import-sort` 사용, `import-x/order`는 비활성화)
-  - side-effect → `node:` → `react`/`next` → 외부 패키지 → `@/` → 절대 경로 → 상대 경로 → CSS 순
-- 미사용 import 자동 정리 (`unused-imports/no-unused-imports`)
-- 중복 import 방지 (`import-x/no-duplicates`, `import-x/no-self-import`)
-- 절대 경로 사용 권장 (`@/` prefix, `src` 기준, 상대 경로 경고)
-- 플러그인은 `eslint-plugin-import` 가 아닌 활발히 유지되는 포크 [`eslint-plugin-import-x`](https://github.com/un-ts/eslint-plugin-import-x) 사용
+- Automatic import sorting with `eslint-plugin-simple-import-sort`; `import-x/order` is disabled
+  - side effects → `node:` → `react`/`next` → external packages → `@/` → absolute paths → relative paths → CSS
+- Unused import cleanup (`unused-imports/no-unused-imports`)
+- Duplicate and self-import prevention (`import-x/no-duplicates`, `import-x/no-self-import`)
+- Encourages the `@/` absolute alias from `src` and warns on relative paths
+- Uses the actively maintained [`eslint-plugin-import-x`](https://github.com/un-ts/eslint-plugin-import-x) fork instead of `eslint-plugin-import`
 
 ### Prettier
 
-- Prettier 통합 및 충돌 방지
-- 코드 포맷팅 자동화
+- Prettier integration and conflicting-rule prevention
+- Automatic formatting through ESLint
 
-### 일반 JavaScript
+### General JavaScript
 
-- `===` 사용 강제 (`==` 금지)
-- `eval` 사용 금지
-- `debugger`, `alert` 사용 경고
-- 사용되지 않은 표현식 경고
-- 구조 분해 할당 권장 (객체만, `prefer-destructuring`)
-- 배열 메서드 콜백에서 return 문 체크 (버그 방지)
-- switch 문 fallthrough 방지
-- 생성자에서 return 사용 방지
-- 중첩된 삼항 연산자 경고
-- `no-implicit-coercion`은 off (v1.0.5): `!!x`, `+x` 등 JS 관용 표현 허용 — `jsx-no-leaked-render` 오토픽스와 충돌 방지
+- Requires `===` instead of `==`
+- Disallows `eval`
+- Warns on `debugger` and `alert`
+- Warns on unused expressions
+- Prefers object destructuring
+- Checks return statements in array callbacks
+- Prevents switch fallthrough
+- Prevents constructor returns
+- Warns on nested ternaries
+- Keeps `no-implicit-coercion` off so common expressions such as `!!x` and `+x` remain allowed
 
-### Next.js (선택 사항)
+### Next.js (optional)
 
-- Next.js 전용 ESLint 규칙 적용
-- `<a>` 태그 대신 Next.js `Link` 컴포넌트 사용 강제
-- `<img>` 태그 대신 Next.js `Image` 컴포넌트 사용 권장
-- Document Head 관련 규칙 (next/head 사용 권장)
-- Next.js API 이름 오타 검사
-- Google Fonts 최적화 체크 (`display`, `preconnect` 속성)
-- `<Script>` 컴포넌트 `id` 속성 필수 (`inline-script-id`)
-- Google Analytics는 `next/script` 사용 권장 (`next-script-for-ga`)
-- Next.js 빌드 파일 무시 (`.next/`, `out/`, `next-env.d.ts` 등)
+- Next.js-specific ESLint rules
+- Requires the Next.js `Link` component instead of plain `<a>` navigation
+- Recommends the Next.js `Image` component instead of plain `<img>`
+- Document Head rules
+- Next.js API typo detection
+- Google Fonts optimization checks (`display` and `preconnect`)
+- Requires an `id` on inline `<Script>` components
+- Recommends `next/script` for Google Analytics
+- Ignores Next.js build artifacts such as `.next/`, `out/`, and `next-env.d.ts`
 
-> **참고**: Next.js 설정은 React 설정의 모든 기능을 포함하며, Next.js 특화 규칙이 추가로 적용됩니다.
+> **Note:** The Next.js configuration includes every React rule and adds Next.js-specific rules.
 
-## 라이선스
+## License
 
 MIT

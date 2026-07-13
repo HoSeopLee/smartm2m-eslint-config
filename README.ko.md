@@ -17,6 +17,20 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 > - `1.0.7` 이하에서 업그레이드한다면 `eslint-plugin-import`를 `eslint-plugin-import-x`로 교체해야 합니다.
 > - 전체 버전 기록과 마이그레이션 절차는 [CHANGELOG](./CHANGELOG.md)를 확인하세요.
 
+## 호환성
+
+| 구성 요소                         | 지원 범위       | 참고                                       |
+| --------------------------------- | --------------- | ------------------------------------------ |
+| Node.js                           | `>=20.19.0`     | Node.js 20, 22, 24에서 테스트              |
+| ESLint / `@eslint/js`             | `>=9 <10`       | ESLint 9 Flat Config 전용                  |
+| TypeScript                        | `>=4.8.4 <6`    | TypeScript 6 지원은 v2에서 진행 예정       |
+| `typescript-eslint`               | `>=8 <9`        | 최소·최신 peer 조합 모두 테스트            |
+| `@eslint-react/eslint-plugin`     | `^2.13.0`       | ESLint 9 기반 v1 통합                      |
+| `@next/eslint-plugin-next`        | `>=14 <17`      | 선택 사항이며 Next preset에서만 필요       |
+| ESLint 10                         | 미지원          | `eslint-plugin-jsx-a11y` 공식 지원 대기 중 |
+
+CI는 Node.js 20.19에서 선언된 최소 의존성 버전을 검사하고, Node.js 20·22·24에서 허용 범위 내 최신 의존성 조합을 검사합니다.
+
 ## Config Structure
 
 이 패키지는 **presets**(조합된 설정)와 **rules**(도메인별 규칙)로 확장 가능한 구조입니다.

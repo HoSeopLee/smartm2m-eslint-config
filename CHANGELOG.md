@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ESLint 9 호환 하한에 맞춰 `eslint-plugin-react-hooks >=5`, `eslint-plugin-unused-imports >=4`로 조정하고 Prettier 3 peer를 명시
 - JavaScript parser의 `ecmaVersion`을 `latest`로 통일
 - `npm test`가 설정 로드, 실제 lint, import 정렬, 규칙 fixture 검사를 모두 실행하도록 보강
+- CI에 최소 지원 peer 조합과 허용 범위 내 최신 peer 조합 매트릭스 추가
 - 실패를 성공으로 처리하던 구형 Bash 테스트 경로를 제거하고 Node.js 테스트로 통일
 
 ### Fixed
@@ -31,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `target={"_blank"}` 같은 정적 JSX 표현식에서도 `noopener` 누락을 감지하도록 보강
 - README의 중첩 Flat Config 배열 예제 수정
 - 영문 `README.md`와 한국어 `README.ko.md`를 분리하고 언어 전환 링크 추가
+- 영문·한국어 README에 Node.js, ESLint, TypeScript 및 주요 플러그인 호환성 표 추가
 
 ## [1.1.0] - 2026-07-10
 

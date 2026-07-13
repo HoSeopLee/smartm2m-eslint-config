@@ -17,6 +17,20 @@ Shared ESLint configuration for SmartM2M projects.
 > - When upgrading from `1.0.7` or earlier, replace `eslint-plugin-import` with `eslint-plugin-import-x`.
 > - See the [CHANGELOG](./CHANGELOG.md) for the complete version history and migration notes.
 
+## Compatibility
+
+| Component                         | Supported range | Notes                                      |
+| --------------------------------- | --------------- | ------------------------------------------ |
+| Node.js                           | `>=20.19.0`     | Tested on Node.js 20, 22, and 24           |
+| ESLint / `@eslint/js`             | `>=9 <10`       | ESLint 9 Flat Config only                  |
+| TypeScript                        | `>=4.8.4 <6`    | TypeScript 6 is planned for the v2 line    |
+| `typescript-eslint`               | `>=8 <9`        | Both minimum and latest peers are tested   |
+| `@eslint-react/eslint-plugin`     | `^2.13.0`       | ESLint 9-compatible v1 integration         |
+| `@next/eslint-plugin-next`        | `>=14 <17`      | Optional; required only for the Next preset |
+| ESLint 10                         | Not supported   | Waiting for official `eslint-plugin-jsx-a11y` support |
+
+CI tests the declared minimum dependency versions on Node.js 20.19 and the latest allowed dependency versions on Node.js 20, 22, and 24.
+
 ## Configuration structure
 
 The package separates composed **presets** from domain-specific **rule modules**, making it possible to use a complete setup or build a custom one.

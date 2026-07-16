@@ -82,14 +82,19 @@ export default {
   rules: {
     // only-export-components는 preset에서 테스트 등 override (off)
     "react-refresh/only-export-components": "off",
+    // 선언 또는 import되지 않은 JSX 컴포넌트와 식별자 사용 금지 (error)
     "no-undef": "error",
-    // Published @eslint-react 5.16.1 does not export this yet; keep enabled for the next release.
+    // JSX 속성 중복 금지 (error) - @eslint-react 정식 배포 대기
     "@eslint-react/jsx-no-duplicate-props": "error",
+    // 반복 렌더링 요소의 key 누락 금지 (error)
     "@eslint-react/no-missing-key": "error",
     // 배열 인덱스를 key로 쓰면 경고 (warn)
     "@eslint-react/no-array-index-key": "warn",
+    // children을 일반 prop으로 직접 전달하는 패턴 금지 (error)
     "@eslint-react/jsx-no-children-prop": "error",
+    // children과 dangerouslySetInnerHTML 동시 사용 금지 (error)
     "@eslint-react/dom-no-dangerously-set-innerhtml-with-children": "error",
+    // React에서 폐기되었거나 권장되지 않는 레거시 API 사용 경고 (warn)
     ...Object.fromEntries(
       [
         "@eslint-react/no-component-will-mount",
@@ -103,12 +108,19 @@ export default {
         "@eslint-react/dom-no-render-return-value",
       ].map((rule) => [rule, "warn"]),
     ),
+    // this.state 직접 변경 금지 (error)
     "@eslint-react/no-direct-mutation-state": "error",
+    // 제거된 ReactDOM.findDOMNode API 사용 경고 (warn)
     "@eslint-react/dom-no-find-dom-node": "warn",
+    // ReactDOM.render 반환값 사용 금지 (error)
     "@eslint-react/dom-no-render-return-value": "error",
+    // 불필요한 Fragment 사용 경고 (warn)
     "@eslint-react/jsx-no-useless-fragment": "warn",
+    // javascript: URL 사용 경고 (warn)
     "@eslint-react/dom-no-script-url": "warn",
+    // 외부 _blank 링크에 rel="noopener" 누락 시 경고 (warn)
     "smartm2m-react/no-unsafe-target-blank": "warn",
+    // 클래스 컴포넌트의 사용되지 않는 state 경고 (warn)
     "@eslint-react/no-unused-state": "warn",
     // Hooks 규칙 (error)
     "react-hooks/rules-of-hooks": "error",

@@ -8,12 +8,13 @@ Shared ESLint configuration for SmartM2M projects.
 - 📦 [npm package](https://www.npmjs.com/package/smartm2m-eslint-config)
 - 🐙 [GitHub repository](https://github.com/HoSeopLee/smartm2m-eslint-config)
 
-> ⚠️ **ESLint 9 Flat Config only**
-> This package uses the ESLint 9 Flat Config format. Legacy `.eslintrc` configurations are not supported.
+> ⚠️ **ESLint 10 Flat Config only**
+> Version 2 uses ESLint 10 Flat Config. Use `1.1.1` for ESLint 9 projects. Legacy `.eslintrc` configurations are not supported.
 
 > 📌 **Version guidance (as of July 16, 2026)**
 >
-> - **`1.1.1` is recommended** — it fixes tsconfig discovery, Flat Config composition, peer compatibility ranges, and static `target="_blank"` validation.
+> - **`2.0.0` is the ESLint 10 line**; use **`1.1.1` for ESLint 9 maintenance**.
+> - Version 2 requires Node.js 22.13+, TypeScript 6, and the peer versions shown below.
 > - If custom type-aware `typescript-eslint` rules relied on the preset's previous implicit tsconfig discovery, configure `projectService: true` or an explicit `project` path as shown in [Enabling type-aware rules](#enabling-type-aware-rules).
 > - When upgrading from `1.0.7` or earlier, migrate consumer overrides from `react/*` to the corresponding `@eslint-react/*` rule names.
 > - When upgrading from `1.0.7` or earlier, replace `eslint-plugin-import` with `eslint-plugin-import-x`.
@@ -23,15 +24,15 @@ Shared ESLint configuration for SmartM2M projects.
 
 | Component                         | Supported range | Notes                                      |
 | --------------------------------- | --------------- | ------------------------------------------ |
-| Node.js                           | `>=20.19.0`     | Tested on Node.js 20, 22, and 24           |
-| ESLint / `@eslint/js`             | `>=9 <10`       | ESLint 9 Flat Config only                  |
-| TypeScript                        | `>=4.8.4 <6`    | TypeScript 6 is planned for the v2 line    |
-| `typescript-eslint`               | `>=8 <9`        | Both minimum and latest peers are tested   |
-| `@eslint-react/eslint-plugin`     | `^2.13.0`       | ESLint 9-compatible v1 integration         |
-| `@next/eslint-plugin-next`        | `>=15 <17`      | Optional; required only for the Next preset |
-| ESLint 10                         | Not supported   | Waiting for official `eslint-plugin-jsx-a11y` support |
+| Node.js                           | `>=22.13.0`     | Tested on Node.js 22, 24, and 25           |
+| ESLint / `@eslint/js`             | `>=10.0.1 <11`  | ESLint 10 Flat Config only                 |
+| TypeScript                        | `>=6.0.2 <6.1`  | TypeScript 7 awaits `typescript-eslint` support |
+| `typescript-eslint`               | `>=8.64 <9`     | Both minimum and latest peers are tested   |
+| `@eslint-react/eslint-plugin`     | `>=5.16.1 <6`   | ESLint 10-compatible v2 integration        |
+| `@next/eslint-plugin-next`        | `>=16 <17`      | Optional; required only for the Next preset |
+| `eslint-plugin-jsx-a11y-x`        | `>=0.2 <1`      | ESLint 10-compatible accessibility fork    |
 
-CI tests the declared minimum dependency versions on Node.js 20.19 and the latest allowed dependency versions on Node.js 20, 22, and 24.
+CI tests the declared minimum dependency versions on Node.js 22.13 and the latest allowed dependency versions on Node.js 22, 24, and 25.
 
 ## Configuration structure
 
@@ -70,7 +71,7 @@ npm install -D smartm2m-eslint-config
 
 # Step 2: install required peer dependencies
 # Replace npm with yarn or pnpm when needed.
-npm install -D @eslint/js @eslint-react/eslint-plugin@^2.13.0 eslint eslint-config-prettier eslint-plugin-import-x eslint-plugin-jsx-a11y eslint-plugin-no-relative-import-paths eslint-plugin-prettier eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-simple-import-sort eslint-plugin-unused-imports globals prettier typescript typescript-eslint
+npm install -D @eslint/js@^10 @eslint-react/eslint-plugin@^5.16.1 eslint@^10 eslint-config-prettier eslint-plugin-import-x eslint-plugin-jsx-a11y-x eslint-plugin-prettier eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-simple-import-sort eslint-plugin-unused-imports globals prettier typescript@^6.0.2 typescript-eslint
 
 # Next.js projects only (optional)
 npm install -D @next/eslint-plugin-next
@@ -80,10 +81,10 @@ npm install -D @next/eslint-plugin-next
 >
 > - Package managers handle peer dependencies differently, so explicitly installing the listed peers in the consumer project is recommended.
 > - `@next/eslint-plugin-next` is optional through `peerDependenciesMeta` and may be omitted outside Next.js projects.
-> - The Next.js framework and plugin majors do not have to match, but plugin 14.x is excluded because ESLint 9 support starts with 15.x. Use plugin 15.x or 16.x with this package.
+> - Version 2 supports `@next/eslint-plugin-next` 16.x. Version 1 supports plugin 15.x or 16.x.
 > - Peer dependency upper bounds cover only tested major versions. Support for a new major is added after compatibility testing.
-> - `@eslint-react/eslint-plugin@2.13.0` supports ESLint 9 and Node.js 20.19+. The package stays on 2.x while the v1 line remains on ESLint 9.
-> - Since v1.0.8, `eslint` and `@eslint/js` are limited to `>=9.0.0 <10.0.0`. `eslint-plugin-jsx-a11y` does not yet officially support ESLint 10, so ESLint 10 support remains deferred until the plugin ecosystem is compatible.
+> - Version 2 replaces `eslint-plugin-jsx-a11y` with the ESLint 10-compatible `eslint-plugin-jsx-a11y-x` fork. Consumer overrides must rename `jsx-a11y/*` to `jsx-a11y-x/*`.
+> - Version 2 replaces `eslint-plugin-no-relative-import-paths` with ESLint's built-in `no-restricted-imports`; uninstall the old plugin when upgrading.
 > - `eslint-plugin-import` was replaced with the actively maintained [`eslint-plugin-import-x`](https://github.com/un-ts/eslint-plugin-import-x) fork. Import rule names use the `import-x/*` prefix.
 
 ## Usage
@@ -291,9 +292,9 @@ pnpm --filter admin exec eslint .
 
 Each app can use the React or Next.js examples above. For type-aware rules, set `tsconfigRootDir: import.meta.dirname` in each app's config. This keeps tsconfig resolution stable even when the command runs from the workspace root.
 
-#### Changing the import alias root
+#### Allowing parent-relative imports
 
-The default import alias uses `@` with `src` as its root. Override the rule when a project uses a different directory structure:
+Parent-relative imports such as `../shared` produce a warning. Disable the built-in rule if a project intentionally uses them:
 
 ```javascript
 import reactConfig from "smartm2m-eslint-config/react";
@@ -302,14 +303,7 @@ export default [
   ...reactConfig,
   {
     rules: {
-      "no-relative-import-paths/no-relative-import-paths": [
-        "warn",
-        {
-          allowSameFolder: true,
-          rootDir: "source",
-          prefix: "@",
-        },
-      ],
+      "no-restricted-imports": "off",
     },
   },
 ];
@@ -317,16 +311,13 @@ export default [
 
 > **Tailwind CSS:** Tailwind-specific plugins such as `better-tailwindcss` and `eslint-plugin-tailwindcss` are not included. Install and configure them in the consumer project.
 
-> **Import alias:** `no-relative-import-paths` defaults to `rootDir: 'src'` and `prefix: '@'`. Override the rule for other layouts.
-
 ## Included rules
 
 ### React
 
 - React and React Hooks rules
-- Missing JSX keys, duplicate props, and undefined JSX checks
+- Missing JSX keys, invalid children props, and unnecessary Fragment checks
 - Warning for array indices used as keys
-- Boolean prop and Fragment shorthand recommendations
 - Direct state mutation prevention and deprecated API warnings
 - Warning for unstable objects or arrays passed to Context providers (`@eslint-react/no-unstable-context-value`)
 - Hooks call order enforcement (`react-hooks/rules-of-hooks`, error)

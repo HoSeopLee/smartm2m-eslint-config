@@ -8,12 +8,13 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 - 📦 [npm 패키지](https://www.npmjs.com/package/smartm2m-eslint-config)
 - 🐙 [GitHub 저장소](https://github.com/HoSeopLee/smartm2m-eslint-config)
 
-> ⚠️ **ESLint 9 Flat Config 전용**
-> 이 설정은 ESLint 9 Flat Config 형식을 사용하며, `.eslintrc`(레거시) 형식은 지원하지 않습니다.
+> ⚠️ **ESLint 10 Flat Config 전용**
+> 2버전은 ESLint 10 Flat Config를 사용합니다. ESLint 9 프로젝트는 `1.1.1`을 사용하세요. `.eslintrc`(레거시) 형식은 지원하지 않습니다.
 
 > 📌 **버전 사용 안내 (2026-07-16 기준)**
 >
-> - **`1.1.1` 사용 권장** — tsconfig 탐색, Flat Config 조합, peer 호환 범위, 정적 `target="_blank"` 검사를 수정했습니다.
+> - **`2.0.0`은 ESLint 10 대응 버전**이고, **ESLint 9 유지보수는 `1.1.1`**을 사용합니다.
+> - 2버전은 Node.js 22.13+, TypeScript 6 및 아래 peer 버전이 필요합니다.
 > - 커스텀 type-aware `typescript-eslint` 규칙이 기존 preset의 암묵적인 tsconfig 탐색에 의존했다면 [Type-aware 규칙 사용](#type-aware-규칙-사용)을 참고해 `projectService: true` 또는 명시적인 `project` 경로를 설정하세요.
 > - `1.0.7` 이하에서 업그레이드한다면 소비자 override의 `react/*` 규칙명을 대응하는 `@eslint-react/*` 규칙명으로 변경해야 합니다.
 > - `1.0.7` 이하에서 업그레이드한다면 `eslint-plugin-import`를 `eslint-plugin-import-x`로 교체해야 합니다.
@@ -23,15 +24,15 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 
 | 구성 요소                         | 지원 범위       | 참고                                       |
 | --------------------------------- | --------------- | ------------------------------------------ |
-| Node.js                           | `>=20.19.0`     | Node.js 20, 22, 24에서 테스트              |
-| ESLint / `@eslint/js`             | `>=9 <10`       | ESLint 9 Flat Config 전용                  |
-| TypeScript                        | `>=4.8.4 <6`    | TypeScript 6 지원은 v2에서 진행 예정       |
-| `typescript-eslint`               | `>=8 <9`        | 최소·최신 peer 조합 모두 테스트            |
-| `@eslint-react/eslint-plugin`     | `^2.13.0`       | ESLint 9 기반 v1 통합                      |
-| `@next/eslint-plugin-next`        | `>=15 <17`      | 선택 사항이며 Next preset에서만 필요       |
-| ESLint 10                         | 미지원          | `eslint-plugin-jsx-a11y` 공식 지원 대기 중 |
+| Node.js                           | `>=22.13.0`     | Node.js 22, 24, 25에서 테스트              |
+| ESLint / `@eslint/js`             | `>=10.0.1 <11`  | ESLint 10 Flat Config 전용                 |
+| TypeScript                        | `>=6.0.2 <6.1`  | TypeScript 7은 `typescript-eslint` 지원 대기 |
+| `typescript-eslint`               | `>=8.64 <9`     | 최소·최신 peer 조합 모두 테스트            |
+| `@eslint-react/eslint-plugin`     | `>=5.16.1 <6`   | ESLint 10 기반 v2 통합                     |
+| `@next/eslint-plugin-next`        | `>=16 <17`      | 선택 사항이며 Next preset에서만 필요       |
+| `eslint-plugin-jsx-a11y-x`        | `>=0.2 <1`      | ESLint 10 호환 접근성 포크                  |
 
-CI는 Node.js 20.19에서 선언된 최소 의존성 버전을 검사하고, Node.js 20·22·24에서 허용 범위 내 최신 의존성 조합을 검사합니다.
+CI는 Node.js 22.13에서 선언된 최소 의존성 버전을 검사하고, Node.js 22·24·25에서 허용 범위 내 최신 의존성 조합을 검사합니다.
 
 ## Config Structure
 
@@ -69,7 +70,7 @@ npm install -D smartm2m-eslint-config
 # pnpm add -D smartm2m-eslint-config
 
 # 2단계: 필수 의존성 설치 (yarn/pnpm 사용 시 npm을 yarn 또는 pnpm으로 교체)
-npm install -D @eslint/js @eslint-react/eslint-plugin@^2.13.0 eslint eslint-config-prettier eslint-plugin-import-x eslint-plugin-jsx-a11y eslint-plugin-no-relative-import-paths eslint-plugin-prettier eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-simple-import-sort eslint-plugin-unused-imports globals prettier typescript typescript-eslint
+npm install -D @eslint/js@^10 @eslint-react/eslint-plugin@^5.16.1 eslint@^10 eslint-config-prettier eslint-plugin-import-x eslint-plugin-jsx-a11y-x eslint-plugin-prettier eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-simple-import-sort eslint-plugin-unused-imports globals prettier typescript@^6.0.2 typescript-eslint
 
 # Next.js 프로젝트인 경우 추가 설치 (optional)
 npm install -D @next/eslint-plugin-next
@@ -79,10 +80,10 @@ npm install -D @next/eslint-plugin-next
 >
 > - 패키지 매니저마다 peer dependency 처리 방식이 다르므로, 위에 나열한 peer를 소비자 프로젝트에 명시적으로 설치하는 것을 권장합니다.
 > - `@next/eslint-plugin-next` 는 `peerDependenciesMeta`에서 `optional: true`로 지정되어 있어, 사용하지 않는 프로젝트에서는 설치 생략 가능합니다.
-> - Next.js 프레임워크와 플러그인의 major가 반드시 같을 필요는 없지만, 플러그인 14.x는 ESLint 9을 지원하지 않아 제외합니다. 이 패키지에서는 플러그인 15.x 또는 16.x를 사용하세요.
+> - 2버전은 `@next/eslint-plugin-next` 16.x를 지원합니다. 1버전은 플러그인 15.x 또는 16.x를 지원합니다.
 > - peerDependencies는 검증한 major 범위에만 상한을 열어 둡니다. 새 major는 호환성 테스트 후 지원 범위를 확대합니다.
-> - `@eslint-react/eslint-plugin@2.13.0` 은 ESLint 9와 Node.js 20.19+를 지원합니다. ESLint 9를 유지하는 현재 패키지와의 호환을 위해 2.x로 고정합니다.
-> - v1.0.8 부터 `eslint`, `@eslint/js` 는 `>=9.0.0 <10.0.0` 으로 상한이 지정됩니다 — `eslint-plugin-jsx-a11y`가 아직 eslint 10 API 를 지원하지 않기 때문입니다. 생태계가 eslint 10 을 지원하면 상한 완화 재검토 예정.
+> - 2버전은 `eslint-plugin-jsx-a11y`를 ESLint 10 호환 포크인 `eslint-plugin-jsx-a11y-x`로 교체합니다. 소비자 override는 `jsx-a11y/*`를 `jsx-a11y-x/*`로 변경해야 합니다.
+> - 2버전은 `eslint-plugin-no-relative-import-paths`를 ESLint 내장 `no-restricted-imports`로 교체합니다. 업그레이드 시 기존 플러그인을 제거하세요.
 > - **`eslint-plugin-import` 는 사실상 유지보수 정체 상태라 활발히 유지되는 포크인 [`eslint-plugin-import-x`](https://github.com/un-ts/eslint-plugin-import-x) 로 교체**되었습니다. 규칙 prefix 는 `import-x/*`.
 
 ## 사용 방법
@@ -291,9 +292,9 @@ pnpm --filter admin exec eslint .
 
 각 앱의 설정 파일은 위 React/Next 예제를 그대로 사용합니다. type-aware 규칙이 필요하면 각 앱 설정에서 `tsconfigRootDir: import.meta.dirname`을 지정하세요. 이렇게 하면 workspace 루트에서 명령을 실행해도 앱별 tsconfig 기준이 바뀌지 않습니다.
 
-#### Import alias 경로 변경
+#### 상위 폴더 상대 import 허용
 
-기본 import alias는 `src` 기준 `@`입니다. 다른 구조라면 프로젝트 설정에서 변경합니다.
+`../shared`와 같은 상위 폴더 상대 import는 경고를 발생시킵니다. 의도적으로 사용하는 프로젝트는 내장 규칙을 끄세요.
 
 ```javascript
 import reactConfig from "smartm2m-eslint-config/react";
@@ -302,14 +303,7 @@ export default [
   ...reactConfig,
   {
     rules: {
-      "no-relative-import-paths/no-relative-import-paths": [
-        "warn",
-        {
-          allowSameFolder: true,
-          rootDir: "source",
-          prefix: "@",
-        },
-      ],
+      "no-restricted-imports": "off",
     },
   },
 ];
@@ -317,16 +311,13 @@ export default [
 
 > **Tailwind CSS 규칙이 필요한 경우**: `better-tailwindcss`, `eslint-plugin-tailwindcss` 같은 플러그인은 이 패키지에 포함되어 있지 않습니다. 프로젝트에서 직접 설치·설정해 `settings`/`plugins`/`rules`에 추가하세요.
 
-> **참고**: `no-relative-import-paths` 규칙은 `rootDir: 'src'`, `prefix: '@'`를 기본값으로 사용합니다. 다른 구조를 사용하는 프로젝트는 해당 규칙을 오버라이드하세요.
-
 ## 포함된 설정
 
 ### React
 
 - React 및 React Hooks 관련 규칙
-- JSX 키, 중복 props, 정의되지 않은 JSX 사용 방지
+- JSX 키, 잘못된 children prop, 불필요한 Fragment 검사
 - 배열 인덱스를 key로 사용 시 경고
-- boolean prop과 Fragment 축약형 사용 권장
 - state 직접 변경 방지, deprecated API 사용 경고
 - Context Provider에 불안정한 객체/배열 전달 경고 (`@eslint-react/no-unstable-context-value`)
 - Hooks 호출 규칙 강제 (`react-hooks/rules-of-hooks`, error)

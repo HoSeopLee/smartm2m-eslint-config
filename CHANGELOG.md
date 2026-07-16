@@ -12,6 +12,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > - **1.0.5**: `jsx-no-leaked-render` 가 `ternary` 전략으로 autofix 되어 코드가 `{x ? <Y/> : null}` 로 강제 변환됨. 팀 코드 스타일과 상충되어 1.0.6 에서 해당 규칙을 off 처리. 1.0.7 이상 사용 권장.
 > - **1.0.6**: `react-hooks/exhaustive-deps` 를 `warn` 으로 유지하여 엄격한 hook dependency 검사가 가능한 유효한 선택지입니다. 다만 stable 값(queryClient, setter, 커스텀 훅 반환값)에 대한 false positive 경고가 자주 발생할 수 있어, 일반 프로젝트엔 1.0.7 사용을 권장합니다. **deprecated 아님.**
 
+## [Unreleased]
+
+### Breaking
+
+- ESLint 10, Node.js 22.13+, TypeScript 6 기반의 2.x 지원 범위로 전환
+- `eslint-plugin-jsx-a11y`를 ESLint 10 호환 포크 `eslint-plugin-jsx-a11y-x`로 교체하고 규칙 prefix를 `jsx-a11y-x/*`로 변경
+- ESLint 10을 지원하지 않는 `eslint-plugin-no-relative-import-paths`를 제거
+- `@eslint-react/eslint-plugin` 5.x의 새 규칙명으로 전환하고 v5에서 제거된 규칙은 설정에서 제거
+
+### Changed
+
+- 상위 폴더 상대 import 제한을 ESLint 내장 `no-restricted-imports` 규칙으로 대체
+- CI를 Node.js 22.13 최소 peer 조합과 Node.js 22/24/25 최신 peer 조합으로 갱신
+
+### Added
+
+- `jsx-a11y-x/alt-text`와 상위 폴더 상대 import 제한을 검증하는 규칙 fixture 추가
+
 ## [1.1.1] - 2026-07-16
 
 ### Upgrade notes

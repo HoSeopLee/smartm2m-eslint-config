@@ -11,7 +11,7 @@ Shared ESLint configuration for SmartM2M projects.
 > ⚠️ **ESLint 9 Flat Config only**
 > This package uses the ESLint 9 Flat Config format. Legacy `.eslintrc` configurations are not supported.
 
-> 📌 **Version guidance (as of July 13, 2026)**
+> 📌 **Version guidance (as of July 16, 2026)**
 >
 > - **`1.1.1` is recommended** — it fixes tsconfig discovery, Flat Config composition, peer compatibility ranges, and static `target="_blank"` validation.
 > - If custom type-aware `typescript-eslint` rules relied on the preset's previous implicit tsconfig discovery, configure `projectService: true` or an explicit `project` path as shown in [Enabling type-aware rules](#enabling-type-aware-rules).

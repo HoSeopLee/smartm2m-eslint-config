@@ -316,7 +316,7 @@ export default [
 ### React
 
 - React 및 React Hooks 관련 규칙
-- JSX 키, 잘못된 children prop, 불필요한 Fragment 검사
+- JSX 키, 중복 props, 정의되지 않은 컴포넌트, 잘못된 children prop, 불필요한 Fragment 검사
 - 배열 인덱스를 key로 사용 시 경고
 - state 직접 변경 방지, deprecated API 사용 경고
 - Context Provider에 불안정한 객체/배열 전달 경고 (`@eslint-react/no-unstable-context-value`)

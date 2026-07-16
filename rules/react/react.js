@@ -18,6 +18,40 @@ const getStaticAttributeValue = (attribute) => {
 
 const legacyReactRules = {
   rules: {
+    "no-duplicate-jsx-props": {
+      meta: {
+        type: "problem",
+        schema: [],
+        messages: {
+          duplicateProp: "JSX prop '{{name}}' is specified more than once.",
+        },
+      },
+      create(context) {
+        return {
+          JSXOpeningElement(node) {
+            const seen = new Set();
+
+            for (const attribute of node.attributes) {
+              if (
+                attribute.type !== "JSXAttribute" ||
+                attribute.name.type !== "JSXIdentifier"
+              )
+                continue;
+
+              const name = attribute.name.name;
+              if (seen.has(name)) {
+                context.report({
+                  node: attribute,
+                  messageId: "duplicateProp",
+                  data: { name },
+                });
+              }
+              seen.add(name);
+            }
+          },
+        };
+      },
+    },
     "no-unsafe-target-blank": {
       meta: {
         type: "problem",
@@ -82,6 +116,8 @@ export default {
   rules: {
     // only-export-components는 preset에서 테스트 등 override (off)
     "react-refresh/only-export-components": "off",
+    "no-undef": "error",
+    "smartm2m-react/no-duplicate-jsx-props": "error",
     "@eslint-react/no-missing-key": "error",
     // 배열 인덱스를 key로 쓰면 경고 (warn)
     "@eslint-react/no-array-index-key": "warn",

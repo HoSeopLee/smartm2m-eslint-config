@@ -316,7 +316,7 @@ export default [
 ### React
 
 - React and React Hooks rules
-- Missing JSX keys, invalid children props, and unnecessary Fragment checks
+- Missing JSX keys, duplicate props, undefined components, invalid children props, and unnecessary Fragment checks
 - Warning for array indices used as keys
 - Direct state mutation prevention and deprecated API warnings
 - Warning for unstable objects or arrays passed to Context providers (`@eslint-react/no-unstable-context-value`)

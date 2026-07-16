@@ -9,7 +9,7 @@ import reactConfig from '../rules/react/react.js';
 import a11yConfig from '../rules/accessibility/a11y.js';
 import prettierConfig from '../rules/formatting/prettier.js';
 
-export default tseslint.config([
+export default [
 	{
 		ignores: [
 			'dist/**',
@@ -39,8 +39,6 @@ export default tseslint.config([
 			parserOptions: {
 				ecmaFeatures: { jsx: true },
 				sourceType: 'module',
-				project: true,
-				tsconfigRootDir: process.cwd(),
 			},
 		},
 		settings: {
@@ -65,7 +63,7 @@ export default tseslint.config([
 			...prettierConfig.plugins,
 		},
 		languageOptions: {
-			ecmaVersion: 2020,
+			ecmaVersion: 'latest',
 			globals: browserGlobals,
 			parserOptions: {
 				ecmaFeatures: { jsx: true },
@@ -94,4 +92,4 @@ export default tseslint.config([
 			'react-refresh/only-export-components': 'off',
 		},
 	},
-]);
+];

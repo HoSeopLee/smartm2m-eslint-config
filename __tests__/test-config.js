@@ -16,9 +16,29 @@ async function testConfig() {
 
 	// React 설정 테스트
 	await testConfigFile('react.js', 'React 설정');
-	
+
 	// Next.js 설정 테스트
 	await testConfigFile('next.js', 'Next.js 설정');
+
+	// 공개 /ts export가 단독으로 parser와 plugin을 제공하는지 테스트
+	await testStandaloneTsConfig();
+}
+
+async function testStandaloneTsConfig() {
+	console.log('📋 TypeScript 단독 설정 테스트 중...');
+	const { default: config } = await import(`file://${path.join(rootDir, 'rules/typescript/ts.js')}`);
+	const eslint = new ESLint({ overrideConfigFile: true, overrideConfig: [config] });
+	const [result] = await eslint.lintText('const value: any = 1;', { filePath: 'standalone.ts' });
+	const fatalMessages = result.messages.filter((message) => message.fatal || message.ruleId == null);
+
+	if (fatalMessages.length > 0) {
+		throw new Error(fatalMessages.map((message) => message.message).join('; '));
+	}
+	if (!result.messages.some((message) => message.ruleId === '@typescript-eslint/no-explicit-any')) {
+		throw new Error('TypeScript 단독 설정에서 @typescript-eslint 규칙이 실행되지 않았습니다.');
+	}
+
+	console.log('  ✅ TypeScript parser/plugin 및 규칙 정상\n');
 }
 
 /**
@@ -58,23 +78,20 @@ export default config;`;
 			return;
 		}
 
-		// 각 파일에 대해 ESLint 실행
+		// 각 파일에서 parser/config fatal 오류 없이 ESLint가 실행되는지 확인
 		for (const file of testFiles) {
 			const results = await eslint.lintFiles([file]);
 			const fileName = path.basename(file);
+			const messages = results[0]?.messages ?? [];
+			const fatalMessages = messages.filter((message) => message.fatal || message.ruleId == null);
 
-			// 결과 출력
-			if (results[0] && results[0].messages.length === 0) {
-				console.log(`  ✅ ${fileName}: 오류 없음`);
-			} else if (results[0]) {
-				console.log(`  ⚠️  ${fileName}: ${results[0].messages.length}개 오류 발견`);
-				results[0].messages.forEach((message) => {
-					const severity = message.severity === 2 ? '❌' : '⚠️';
-					console.log(
-						`     ${severity} ${message.line}:${message.column} - ${message.message} (${message.ruleId})`
-					);
-				});
+			if (fatalMessages.length > 0) {
+				throw new Error(
+					`${fileName}: ${fatalMessages.map((message) => message.message).join('; ')}`,
+				);
 			}
+
+			console.log(`  ✅ ${fileName}: 설정 정상 (규칙 메시지 ${messages.length}개)`);
 		}
 
 		console.log(`  ✅ ${configName} 테스트 완료\n`);
@@ -95,4 +112,3 @@ testConfig().catch((error) => {
 	console.error('테스트 실행 중 오류 발생:', error);
 	process.exit(1);
 });
-

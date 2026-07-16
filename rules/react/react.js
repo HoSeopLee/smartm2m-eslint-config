@@ -2,6 +2,20 @@ import eslintReact from "@eslint-react/eslint-plugin";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
+const getStaticAttributeValue = (attribute) => {
+  const value = attribute.value;
+  if (!value) return true;
+  if (value.type === "Literal") return value.value;
+  if (value.type !== "JSXExpressionContainer") return undefined;
+
+  const expression = value.expression;
+  if (expression.type === "Literal") return expression.value;
+  if (expression.type === "TemplateLiteral" && expression.expressions.length === 0)
+    return expression.quasis[0]?.value.cooked;
+
+  return undefined;
+};
+
 const legacyReactRules = {
   rules: {
     "no-unsafe-target-blank": {
@@ -27,7 +41,7 @@ const legacyReactRules = {
                 )
                 .map((attribute) => [
                   attribute.name.name,
-                  attribute.value?.value,
+                  getStaticAttributeValue(attribute),
                 ]),
             );
             if (
@@ -95,8 +109,8 @@ export default {
     "react-hooks/rules-of-hooks": "error",
     // exhaustive-deps (off) - false positive가 많고(특히 stable 값/커스텀 훅) 팀에 노이즈, 코드리뷰·useCallback 패턴으로 대체 (v1.0.7)
     "react-hooks/exhaustive-deps": "off",
-    // 렌더링 누출 방지 (off) - autofix가 ternary/Boolean() 등으로 강제 변환해 코드 스타일 침해, 팀 코드리뷰·TS 타입으로 대체 (v1.0.6)
-    "react/jsx-no-leaked-render": "off",
+    // 렌더링 누출 방지 (off) - 팀 코드리뷰·TS 타입으로 대체
+    "@eslint-react/no-leaked-conditional-rendering": "off",
     // context 값 변경 금지 (warn)
     "@eslint-react/no-unstable-context-value": "warn",
   },

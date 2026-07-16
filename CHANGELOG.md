@@ -12,6 +12,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > - **1.0.5**: `jsx-no-leaked-render` 가 `ternary` 전략으로 autofix 되어 코드가 `{x ? <Y/> : null}` 로 강제 변환됨. 팀 코드 스타일과 상충되어 1.0.6 에서 해당 규칙을 off 처리. 1.0.7 이상 사용 권장.
 > - **1.0.6**: `react-hooks/exhaustive-deps` 를 `warn` 으로 유지하여 엄격한 hook dependency 검사가 가능한 유효한 선택지입니다. 다만 stable 값(queryClient, setter, 커스텀 훅 반환값)에 대한 false positive 경고가 자주 발생할 수 있어, 일반 프로젝트엔 1.0.7 사용을 권장합니다. **deprecated 아님.**
 
+## [1.1.1] - 2026-07-16
+
+### Upgrade notes
+
+- 기본 preset은 더 이상 `parserOptions.project`를 강제하지 않음. 소비자 설정에서 type-aware `typescript-eslint` 규칙을 추가하고 기존의 암묵적 tsconfig 탐색에 의존했다면 `projectService: true` 또는 명시적인 `project` 경로를 설정해야 함
+
+### Changed
+
+- Node.js 최소 버전을 `>=20.19.0`으로 명시하고 CI 대상을 Node.js 20/22/24로 조정
+- peerDependencies를 검증한 major 범위로 제한
+- ESLint 9 호환 하한에 맞춰 `eslint-plugin-react-hooks >=5`, `eslint-plugin-unused-imports >=4`로 조정하고 Prettier 3 peer를 명시
+- ESLint 9을 지원하는 실제 하한에 맞춰 `eslint-plugin-jsx-a11y >=6.10.0`으로 조정
+- 실제 사용 중인 옵션과 ESLint 9 호환 하한에 맞춰 `eslint-plugin-no-relative-import-paths >=1.6.0`, `@next/eslint-plugin-next >=15.0.0`으로 조정
+- JavaScript parser의 `ecmaVersion`을 `latest`로 통일
+- `npm test`가 설정 로드, 실제 lint, import 정렬, 규칙 fixture 검사를 모두 실행하도록 보강
+- CI에 최소 지원 peer 조합과 허용 범위 내 최신 peer 조합 매트릭스 추가
+- 실패를 성공으로 처리하던 구형 Bash 테스트 경로를 제거하고 Node.js 테스트로 통일
+
+### Fixed
+
+- type-aware 규칙 없이 `project: true`를 강제해 tsconfig 외부 파일에서 parsing error가 발생하던 문제 수정
+- `smartm2m-eslint-config/ts`를 parser와 plugin이 포함된 독립 Flat Config 객체로 수정
+- `typescript-eslint@8.0.0`에서도 preset이 중첩 배열이 되지 않도록 React/Next 구성을 표준 Flat Config 배열로 직접 export
+- React 플러그인 전환 후 남아 있던 `react/jsx-no-leaked-render` 규칙명을 현재 `@eslint-react/no-leaked-conditional-rendering`으로 정정 (`off` 유지)
+- `target={"_blank"}` 같은 정적 JSX 표현식에서도 `noopener` 누락을 감지하도록 보강
+- README의 중첩 Flat Config 배열 예제 수정
+- 영문 `README.md`와 한국어 `README.ko.md`를 분리하고 언어 전환 링크 추가
+- 영문·한국어 README에 Node.js, ESLint, TypeScript 및 주요 플러그인 호환성 표 추가
+
 ## [1.1.0] - 2026-07-10
 
 ### Changed

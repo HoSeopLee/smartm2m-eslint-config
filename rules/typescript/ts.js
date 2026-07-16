@@ -1,3 +1,5 @@
+import tseslint from 'typescript-eslint';
+
 /**
  * rules/typescript/ts.js — TypeScript 규칙, 적용: *.{ts,tsx} (configs/ts.js 대응)
  * 라인별: 규칙 설명 + (warn/error/off)
@@ -5,10 +7,13 @@
 export default {
 	files: ['**/*.{ts,tsx}'],
 	languageOptions: {
+		parser: tseslint.parser,
 		parserOptions: {
 			sourceType: 'module',
-			project: true,
 		},
+	},
+	plugins: {
+		'@typescript-eslint': tseslint.plugin,
 	},
 	rules: {
 		// no-useless-catch (off)

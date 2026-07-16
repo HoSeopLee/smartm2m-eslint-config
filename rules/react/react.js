@@ -83,6 +83,8 @@ export default {
     // only-export-components는 preset에서 테스트 등 override (off)
     "react-refresh/only-export-components": "off",
     "no-undef": "error",
+    // Published @eslint-react 5.16.1 does not export this yet; keep enabled for the next release.
+    "@eslint-react/jsx-no-duplicate-props": "error",
     "@eslint-react/no-missing-key": "error",
     // 배열 인덱스를 key로 쓰면 경고 (warn)
     "@eslint-react/no-array-index-key": "warn",

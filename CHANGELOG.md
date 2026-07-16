@@ -24,12 +24,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - 상위 폴더 상대 import 제한을 ESLint 내장 `no-restricted-imports` 규칙으로 대체
-- ESLint 10의 `no-undef`로 정의되지 않은 JSX 컴포넌트를 검사하고, 중복 JSX props는 로컬 `smartm2m-react/no-duplicate-jsx-props`로 검사
+- ESLint 10의 `no-undef`로 정의되지 않은 JSX 컴포넌트를 검사. 중복 JSX props는 TypeScript 컴파일러 `TS17001`에 위임
 - CI를 Node.js 22.13 최소 peer 조합과 Node.js 22/24/25 최신 peer 조합으로 갱신
 
 ### Added
 
-- `jsx-a11y-x/alt-text`, 중복·미정의 JSX, 상위 폴더 상대 import 제한을 검증하는 규칙 fixture 추가
+- `jsx-a11y-x/alt-text`, 미정의 JSX, 상위 폴더 상대 import 제한을 검증하는 규칙 fixture 추가
 
 ## [1.1.1] - 2026-07-16
 

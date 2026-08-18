@@ -11,8 +11,7 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 > ⚠️ **ESLint 10 Flat Config 전용**
 > 2버전은 ESLint 10 Flat Config를 사용합니다. ESLint 9 프로젝트는 `1.1.1`을 사용하세요. `.eslintrc`(레거시) 형식은 지원하지 않습니다.
 
-> 📌 **버전 사용 안내 (2026-07-16 기준)**
->
+> 📌 **버전 사용 안내 (2026-08-18 기준)**
 > - **`2.0.0`은 ESLint 10 대응 버전**이고, **ESLint 9 유지보수는 `1.1.1`**을 사용합니다.
 > - 2버전은 Node.js 22.13+, TypeScript 6 및 아래 peer 버전이 필요합니다.
 > - 커스텀 type-aware `typescript-eslint` 규칙이 기존 preset의 암묵적인 tsconfig 탐색에 의존했다면 [Type-aware 규칙 사용](#type-aware-규칙-사용)을 참고해 `projectService: true` 또는 명시적인 `project` 경로를 설정하세요.
@@ -70,10 +69,10 @@ npm install -D smartm2m-eslint-config
 # pnpm add -D smartm2m-eslint-config
 
 # 2단계: 필수 의존성 설치 (yarn/pnpm 사용 시 npm을 yarn 또는 pnpm으로 교체)
-npm install -D @eslint/js@^10 @eslint-react/eslint-plugin@^5.16.1 eslint@^10 eslint-config-prettier eslint-plugin-import-x eslint-plugin-jsx-a11y-x eslint-plugin-prettier eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-simple-import-sort eslint-plugin-unused-imports globals prettier typescript@^6.0.2 typescript-eslint
+npm install -D @eslint/js@">=10.0.1 <11" @eslint-react/eslint-plugin@^5.16.1 eslint@">=10.0.1 <11" eslint-config-prettier eslint-plugin-import-x eslint-plugin-jsx-a11y-x@">=0.2.0 <1" eslint-plugin-prettier eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-simple-import-sort eslint-plugin-unused-imports globals prettier typescript@">=6.0.2 <6.1" typescript-eslint@">=8.64.0 <9"
 
 # Next.js 프로젝트인 경우 추가 설치 (optional)
-npm install -D @next/eslint-plugin-next
+npm install -D @next/eslint-plugin-next@">=16 <17"
 ```
 
 > **참고**:

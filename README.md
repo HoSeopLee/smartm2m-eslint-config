@@ -11,8 +11,7 @@ Shared ESLint configuration for SmartM2M projects.
 > ⚠️ **ESLint 10 Flat Config only**
 > Version 2 uses ESLint 10 Flat Config. Use `1.1.1` for ESLint 9 projects. Legacy `.eslintrc` configurations are not supported.
 
-> 📌 **Version guidance (as of July 16, 2026)**
->
+> 📌 **Version guidance (as of August 18, 2026)**
 > - **`2.0.0` is the ESLint 10 line**; use **`1.1.1` for ESLint 9 maintenance**.
 > - Version 2 requires Node.js 22.13+, TypeScript 6, and the peer versions shown below.
 > - If custom type-aware `typescript-eslint` rules relied on the preset's previous implicit tsconfig discovery, configure `projectService: true` or an explicit `project` path as shown in [Enabling type-aware rules](#enabling-type-aware-rules).
@@ -71,10 +70,10 @@ npm install -D smartm2m-eslint-config
 
 # Step 2: install required peer dependencies
 # Replace npm with yarn or pnpm when needed.
-npm install -D @eslint/js@^10 @eslint-react/eslint-plugin@^5.16.1 eslint@^10 eslint-config-prettier eslint-plugin-import-x eslint-plugin-jsx-a11y-x eslint-plugin-prettier eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-simple-import-sort eslint-plugin-unused-imports globals prettier typescript@^6.0.2 typescript-eslint
+npm install -D @eslint/js@">=10.0.1 <11" @eslint-react/eslint-plugin@^5.16.1 eslint@">=10.0.1 <11" eslint-config-prettier eslint-plugin-import-x eslint-plugin-jsx-a11y-x@">=0.2.0 <1" eslint-plugin-prettier eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-simple-import-sort eslint-plugin-unused-imports globals prettier typescript@">=6.0.2 <6.1" typescript-eslint@">=8.64.0 <9"
 
 # Next.js projects only (optional)
-npm install -D @next/eslint-plugin-next
+npm install -D @next/eslint-plugin-next@">=16 <17"
 ```
 
 > **Notes**

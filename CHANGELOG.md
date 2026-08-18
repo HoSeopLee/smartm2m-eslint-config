@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > - **1.0.5**: `jsx-no-leaked-render` 가 `ternary` 전략으로 autofix 되어 코드가 `{x ? <Y/> : null}` 로 강제 변환됨. 팀 코드 스타일과 상충되어 1.0.6 에서 해당 규칙을 off 처리. 1.0.7 이상 사용 권장.
 > - **1.0.6**: `react-hooks/exhaustive-deps` 를 `warn` 으로 유지하여 엄격한 hook dependency 검사가 가능한 유효한 선택지입니다. 다만 stable 값(queryClient, setter, 커스텀 훅 반환값)에 대한 false positive 경고가 자주 발생할 수 있어, 일반 프로젝트엔 1.0.7 사용을 권장합니다. **deprecated 아님.**
 
-## [Unreleased]
+## [2.0.0] - 2026-08-18
 
 ### Breaking
 
@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - 상위 폴더 상대 import 제한을 ESLint 내장 `no-restricted-imports` 규칙으로 대체
-- ESLint 10의 `no-undef`로 정의되지 않은 JSX 컴포넌트를 검사하고, `@eslint-react/jsx-no-duplicate-props`는 정식 배포 대기 상태로 활성화. 배포 전까지 중복 JSX props는 TypeScript 컴파일러 `TS17001`로 검사
+- ESLint 10의 `no-undef`로 정의되지 않은 JSX 컴포넌트를 검사하고, 중복 JSX props는 TypeScript 컴파일러 `TS17001`로 검사
 - CI를 Node.js 22.13 최소 peer 조합과 Node.js 22/24/25 최신 peer 조합으로 갱신
 
 ### Added

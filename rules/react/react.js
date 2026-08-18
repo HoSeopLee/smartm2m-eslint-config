@@ -84,8 +84,6 @@ export default {
     "react-refresh/only-export-components": "off",
     // 선언 또는 import되지 않은 JSX 컴포넌트와 식별자 사용 금지 (error)
     "no-undef": "error",
-    // JSX 속성 중복 금지 (error) - @eslint-react 정식 배포 대기
-    "@eslint-react/jsx-no-duplicate-props": "error",
     // 반복 렌더링 요소의 key 누락 금지 (error)
     "@eslint-react/no-missing-key": "error",
     // 배열 인덱스를 key로 쓰면 경고 (warn)

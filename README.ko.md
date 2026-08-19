@@ -11,8 +11,9 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 > ⚠️ **ESLint 10 Flat Config 전용**
 > 2버전은 ESLint 10 Flat Config를 사용합니다. ESLint 9 프로젝트는 `1.1.1`을 사용하세요. `.eslintrc`(레거시) 형식은 지원하지 않습니다.
 
-> 📌 **버전 사용 안내 (2026-08-18 기준)**
-> - **`2.0.0`은 ESLint 10 대응 버전**이고, **ESLint 9 유지보수는 `1.1.1`**을 사용합니다.
+> 📌 **버전 사용 안내 (2026-08-19 기준)**
+> - **ESLint 10은 `2.0.1` 사용을 권장**하고, **ESLint 9 유지보수는 `1.1.1`**을 사용합니다.
+> - `2.0.1`은 `React.ComponentProps`, `React.ReactNode` 등 TypeScript React 타입 네임스페이스에서 발생하던 `no-undef` 오탐을 수정했습니다.
 > - 2버전은 Node.js 22.13+, TypeScript 6 및 아래 peer 버전이 필요합니다.
 > - 커스텀 type-aware `typescript-eslint` 규칙이 기존 preset의 암묵적인 tsconfig 탐색에 의존했다면 [Type-aware 규칙 사용](#type-aware-규칙-사용)을 참고해 `projectService: true` 또는 명시적인 `project` 경로를 설정하세요.
 > - `1.0.7` 이하에서 업그레이드한다면 소비자 override의 `react/*` 규칙명을 대응하는 `@eslint-react/*` 규칙명으로 변경해야 합니다.

@@ -11,8 +11,9 @@ Shared ESLint configuration for SmartM2M projects.
 > ⚠️ **ESLint 10 Flat Config only**
 > Version 2 uses ESLint 10 Flat Config. Use `1.1.1` for ESLint 9 projects. Legacy `.eslintrc` configurations are not supported.
 
-> 📌 **Version guidance (as of August 18, 2026)**
-> - **`2.0.0` is the ESLint 10 line**; use **`1.1.1` for ESLint 9 maintenance**.
+> 📌 **Version guidance (as of August 19, 2026)**
+> - **`2.0.1` is the recommended ESLint 10 release**; use **`1.1.1` for ESLint 9 maintenance**.
+> - `2.0.1` fixes `no-undef` false positives for TypeScript React type namespaces such as `React.ComponentProps` and `React.ReactNode`.
 > - Version 2 requires Node.js 22.13+, TypeScript 6, and the peer versions shown below.
 > - If custom type-aware `typescript-eslint` rules relied on the preset's previous implicit tsconfig discovery, configure `projectService: true` or an explicit `project` path as shown in [Enabling type-aware rules](#enabling-type-aware-rules).
 > - When upgrading from `1.0.7` or earlier, migrate consumer overrides from `react/*` to the corresponding `@eslint-react/*` rule names.

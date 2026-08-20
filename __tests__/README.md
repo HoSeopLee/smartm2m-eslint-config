@@ -22,8 +22,11 @@ npm run test:rules
   - `bad.tsx`: 잘못된 코드 예시 (의도된 규칙 위반)
   - `Header.tsx`: 헬퍼 컴포넌트
   - `test-next.tsx`: Next.js 전용 테스트 파일
+  - `rules/`: 개별 규칙의 통과·실패 경계를 검증하는 fixture
 - `test-config.js`: Node.js 기반 설정 파일 테스트 스크립트
 - `test-load.js`: 설정 파일 로드 테스트 스크립트
+
+규칙 fixture 첫 줄에는 `@expect-rule` 또는 `@expect-pass`를 작성합니다. 기본 React preset 대신 Next preset이 필요하면 같은 줄에 `@preset: next`를 추가합니다.
 
 ## 테스트 방법
 

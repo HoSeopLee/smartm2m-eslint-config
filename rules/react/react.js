@@ -122,8 +122,8 @@ export default {
     "@eslint-react/no-unused-state": "warn",
     // Hooks 규칙 (error)
     "react-hooks/rules-of-hooks": "error",
-    // exhaustive-deps (off) - false positive가 많고(특히 stable 값/커스텀 훅) 팀에 노이즈, 코드리뷰·useCallback 패턴으로 대체 (v1.0.7)
-    "react-hooks/exhaustive-deps": "off",
+    // Effect와 메모이제이션 Hook의 의존성 누락 금지 (error)
+    "react-hooks/exhaustive-deps": "error",
     // 렌더링 누출 방지 (off) - 팀 코드리뷰·TS 타입으로 대체
     "@eslint-react/no-leaked-conditional-rendering": "off",
     // context 값 변경 금지 (warn)

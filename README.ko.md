@@ -11,9 +11,10 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 > ⚠️ **ESLint 10 Flat Config 전용**
 > 2버전은 ESLint 10 Flat Config를 사용합니다. ESLint 9 프로젝트는 `1.1.1`을 사용하세요. `.eslintrc`(레거시) 형식은 지원하지 않습니다.
 
-> 📌 **버전 사용 안내 (2026-08-19 기준)**
-> - **ESLint 10은 `2.0.1` 사용을 권장**하고, **ESLint 9 유지보수는 `1.1.1`**을 사용합니다.
-> - `2.0.1`은 `React.ComponentProps`, `React.ReactNode` 등 TypeScript React 타입 네임스페이스에서 발생하던 `no-undef` 오탐을 수정했습니다.
+> 📌 **버전 사용 안내 (2026-08-20 기준)**
+> - **ESLint 10은 `2.1.0` 사용을 권장**하고, **ESLint 9 유지보수는 `1.1.1`**을 사용합니다.
+> - `2.1.0`은 React Hook 의존성을 강제하고, `value == null` 같은 의도적인 nullish 검사를 허용하며, Next.js의 async Client Component를 차단합니다.
+> - 엄격한 Hook 검사 도입이 어려운 레거시 프로젝트는 문서의 [프로젝트 로컬 예외](#레거시-프로젝트-hook-예외)를 사용할 수 있습니다.
 > - 2버전은 Node.js 22.13+, TypeScript 6 및 아래 peer 버전이 필요합니다.
 > - 커스텀 type-aware `typescript-eslint` 규칙이 기존 preset의 암묵적인 tsconfig 탐색에 의존했다면 [Type-aware 규칙 사용](#type-aware-규칙-사용)을 참고해 `projectService: true` 또는 명시적인 `project` 경로를 설정하세요.
 > - `1.0.7` 이하에서 업그레이드한다면 소비자 override의 `react/*` 규칙명을 대응하는 `@eslint-react/*` 규칙명으로 변경해야 합니다.
@@ -24,7 +25,7 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 
 | 구성 요소                         | 지원 범위       | 참고                                       |
 | --------------------------------- | --------------- | ------------------------------------------ |
-| Node.js                           | `>=22.13.0`     | Node.js 22, 24, 25에서 테스트              |
+| Node.js                           | `>=22.13.0`     | Node.js 22, 24, 26에서 테스트              |
 | ESLint / `@eslint/js`             | `>=10.0.1 <11`  | ESLint 10 Flat Config 전용                 |
 | TypeScript                        | `>=6.0.2 <6.1`  | TypeScript 7은 `typescript-eslint` 지원 대기 |
 | `typescript-eslint`               | `>=8.64 <9`     | 최소·최신 peer 조합 모두 테스트            |
@@ -32,7 +33,7 @@ SmartM2M 프로젝트를 위한 공유 ESLint 설정 패키지입니다.
 | `@next/eslint-plugin-next`        | `>=16 <17`      | 선택 사항이며 Next preset에서만 필요       |
 | `eslint-plugin-jsx-a11y-x`        | `>=0.2 <1`      | ESLint 10 호환 접근성 포크                  |
 
-CI는 Node.js 22.13에서 선언된 최소 의존성 버전을 검사하고, Node.js 22·24·25에서 허용 범위 내 최신 의존성 조합을 검사합니다.
+CI는 Node.js 22.13에서 선언된 최소 의존성 버전을 검사하고, Node.js 22·24·26에서 허용 범위 내 최신 의존성 조합을 검사합니다.
 
 ## Config Structure
 
@@ -45,7 +46,7 @@ CI는 Node.js 22.13에서 선언된 최소 의존성 버전을 검사하고, Nod
 | `smartm2m-eslint-config`               | 기본 (React preset re-export)                  |
 | `smartm2m-eslint-config/react`         | React 프로젝트용 전체 설정                     |
 | `smartm2m-eslint-config/next`          | Next.js 프로젝트용 전체 설정                   |
-| `smartm2m-eslint-config/presets/base`  | JS + import + prettier (React/TS 없음, 확장용) |
+| `smartm2m-eslint-config/presets/base`  | Node.js JS + import + prettier (React/TS 없음) |
 | `smartm2m-eslint-config/presets/react` | React preset (react.js와 동일)                 |
 | `smartm2m-eslint-config/presets/next`  | Next.js preset (next.js와 동일)                |
 | `smartm2m-eslint-config/presets/full`  | 전체 규칙 (현재는 next와 동일)                 |
@@ -182,7 +183,6 @@ export default [
     files: ["**/*.{js,jsx,ts,tsx}"],
     rules: {
       "no-console": "error",
-      "react-hooks/exhaustive-deps": "warn",
     },
   },
 ];
@@ -202,6 +202,28 @@ export default [
   },
 ];
 ```
+
+#### 레거시 프로젝트 Hook 예외
+
+2.1.0부터 `react-hooks/rules-of-hooks`와 `react-hooks/exhaustive-deps`가 모두 error로 적용됩니다. 신규 프로젝트는 이 기본값을 유지하세요. 점진적인 전환이 필요한 레거시 프로젝트만 자체 설정에서 다음과 같이 비활성화할 수 있습니다.
+
+```javascript
+import reactConfig from "smartm2m-eslint-config/react";
+
+export default [
+  ...reactConfig,
+  {
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    rules: {
+      // 임시 레거시 예외이며, 해당 영역을 리팩터링하면서 제거합니다.
+      "react-hooks/rules-of-hooks": "off",
+      "react-hooks/exhaustive-deps": "off",
+    },
+  },
+];
+```
+
+예외는 레거시 프로젝트 내부에만 유지하세요. React의 Hook 호출 순서를 보호하는 `rules-of-hooks`를 먼저 복구하고, 의존성 처리를 마이그레이션하면서 `exhaustive-deps`를 다시 활성화하는 순서를 권장합니다.
 
 #### Type-aware 규칙 사용
 
@@ -320,8 +342,8 @@ export default [
 - 배열 인덱스를 key로 사용 시 경고
 - state 직접 변경 방지, deprecated API 사용 경고
 - Context Provider에 불안정한 객체/배열 전달 경고 (`@eslint-react/no-unstable-context-value`)
-- Hooks 호출 규칙 강제 (`react-hooks/rules-of-hooks`, error)
-  - `react-hooks/exhaustive-deps` 는 **기본 off** (v1.0.7~, stable 값 false positive 과다). 엄격 검사 원하면 consumer 측에서 opt-in
+- Hooks 호출 순서와 의존성 규칙 강제 (`react-hooks/rules-of-hooks`, `react-hooks/exhaustive-deps`, error)
+  - 레거시 프로젝트는 기존 Hook을 마이그레이션하는 동안 프로젝트 로컬 임시 예외를 사용할 수 있음
   - `@eslint-react/no-leaked-conditional-rendering`은 **기본 off**. 필요한 프로젝트만 opt-in
 
 ### TypeScript
@@ -355,7 +377,7 @@ export default [
 
 ### 일반 JavaScript
 
-- `===` 사용 강제 (`==` 금지)
+- `===` 사용 강제. 단, `value == null`, `value != null` 같은 의도적인 nullish 검사는 허용
 - `eval` 사용 금지
 - `debugger`, `alert` 사용 경고
 - 사용되지 않은 표현식 경고
@@ -373,6 +395,7 @@ export default [
 - `<img>` 태그 대신 Next.js `Image` 컴포넌트 사용 권장
 - Document Head 관련 규칙 (next/head 사용 권장)
 - Next.js API 이름 오타 검사
+- async Client Component 사용 금지
 - Google Fonts 최적화 체크 (`display`, `preconnect` 속성)
 - `<Script>` 컴포넌트 `id` 속성 필수 (`inline-script-id`)
 - Google Analytics는 `next/script` 사용 권장 (`next-script-for-ga`)

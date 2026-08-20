@@ -20,8 +20,31 @@ async function testConfig() {
 	// Next.js 설정 테스트
 	await testConfigFile('next.js', 'Next.js 설정');
 
+	// Base preset이 실제 JavaScript/Node 환경에서 실행되는지 테스트
+	await testBaseConfig();
+
 	// 공개 /ts export가 단독으로 parser와 plugin을 제공하는지 테스트
 	await testStandaloneTsConfig();
+}
+
+async function testBaseConfig() {
+	console.log('📋 Base preset 테스트 중...');
+	const { default: config } = await import(`file://${path.join(rootDir, 'presets/base.js')}`);
+	const eslint = new ESLint({ overrideConfigFile: true, overrideConfig: config });
+	const [result] = await eslint.lintText("export const cwd = process.cwd();", { filePath: 'script.js' });
+	const fatalMessages = result.messages.filter((message) => message.fatal || message.ruleId == null);
+	const processErrors = result.messages.filter(
+		(message) => message.ruleId === 'no-undef' && message.message.includes("'process'"),
+	);
+
+	if (fatalMessages.length > 0) {
+		throw new Error(fatalMessages.map((message) => message.message).join('; '));
+	}
+	if (processErrors.length > 0) {
+		throw new Error('Base preset에서 Node.js process 전역을 인식하지 못했습니다.');
+	}
+
+	console.log('  ✅ Flat Config 구조 및 Node.js globals 정상\n');
 }
 
 async function testStandaloneTsConfig() {

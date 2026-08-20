@@ -15,17 +15,23 @@ const fixturesDir = path.join(__dirname, 'fixtures', 'rules');
  *   // @expect-rule: <rule-id>   → 해당 규칙이 1회 이상 리포트되어야 함
  *   // @expect-pass: <rule-id>   → 해당 규칙이 리포트되지 않아야 함
  *
- * preset으로는 react.js를 사용합니다 (대부분의 규칙이 여기에 포함됨).
+ * 기본 preset은 react.js이며, 첫 줄에 `@preset: next`를 쓰면 next.js를 사용합니다.
  */
 async function testRules() {
 	console.log('🧪 규칙별 fixture 테스트 시작...\n');
 
-	const tempConfigPath = path.join(__dirname, 'temp-rules.config.js');
-	const configPath = path.join(rootDir, 'react.js');
-	const configCode = `import config from ${JSON.stringify(pathToFileURL(configPath).href)};\nexport default config;\n`;
-	await writeFile(tempConfigPath, configCode, 'utf8');
-
-	const eslint = new ESLint({ overrideConfigFile: tempConfigPath });
+	const presetNames = ['react', 'next'];
+	const tempConfigPaths = Object.fromEntries(
+		presetNames.map((preset) => [preset, path.join(__dirname, `temp-${preset}-rules.config.js`)]),
+	);
+	for (const preset of presetNames) {
+		const configPath = path.join(rootDir, `${preset}.js`);
+		const configCode = `import config from ${JSON.stringify(pathToFileURL(configPath).href)};\nexport default config;\n`;
+		await writeFile(tempConfigPaths[preset], configCode, 'utf8');
+	}
+	const eslintByPreset = Object.fromEntries(
+		presetNames.map((preset) => [preset, new ESLint({ overrideConfigFile: tempConfigPaths[preset] })]),
+	);
 
 	const files = (await readdir(fixturesDir))
 		.filter((f) => /\.[jt]sx?$/.test(f))
@@ -38,11 +44,12 @@ async function testRules() {
 		for (const file of files) {
 			const source = await readFile(file, 'utf8');
 			const firstLine = source.split('\n')[0];
+			const preset = /@preset:\s*(react|next)/.exec(firstLine)?.[1] ?? 'react';
 			const expectRule = /@expect-rule:\s*([\w-/@]+)/.exec(firstLine);
 			const expectPass = /@expect-pass:\s*([\w-/@]+)/.exec(firstLine);
 			const fileName = path.basename(file);
 
-			const results = await eslint.lintFiles([file]);
+			const results = await eslintByPreset[preset].lintFiles([file]);
 			const messages = results[0]?.messages ?? [];
 
 			// 파서/설정 치명 오류(fatal, ruleId 없음)는 fixture 결과를 왜곡하므로 먼저 실패 처리
@@ -86,7 +93,7 @@ async function testRules() {
 			}
 		}
 	} finally {
-		await unlink(tempConfigPath).catch(() => {});
+		await Promise.all(Object.values(tempConfigPaths).map((file) => unlink(file).catch(() => {})));
 	}
 
 	console.log('\n==================================================');

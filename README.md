@@ -11,9 +11,10 @@ Shared ESLint configuration for SmartM2M projects.
 > ⚠️ **ESLint 10 Flat Config only**
 > Version 2 uses ESLint 10 Flat Config. Use `1.1.1` for ESLint 9 projects. Legacy `.eslintrc` configurations are not supported.
 
-> 📌 **Version guidance (as of August 19, 2026)**
-> - **`2.0.1` is the recommended ESLint 10 release**; use **`1.1.1` for ESLint 9 maintenance**.
-> - `2.0.1` fixes `no-undef` false positives for TypeScript React type namespaces such as `React.ComponentProps` and `React.ReactNode`.
+> 📌 **Version guidance (as of August 20, 2026)**
+> - **`2.1.0` is the recommended ESLint 10 release**; use **`1.1.1` for ESLint 9 maintenance**.
+> - `2.1.0` enforces React Hook dependencies, allows intentional nullish checks such as `value == null`, and rejects async Client Components in Next.js projects.
+> - Legacy projects that are not ready for strict Hook checks can use the documented [project-local override](#legacy-project-hook-overrides).
 > - Version 2 requires Node.js 22.13+, TypeScript 6, and the peer versions shown below.
 > - If custom type-aware `typescript-eslint` rules relied on the preset's previous implicit tsconfig discovery, configure `projectService: true` or an explicit `project` path as shown in [Enabling type-aware rules](#enabling-type-aware-rules).
 > - When upgrading from `1.0.7` or earlier, migrate consumer overrides from `react/*` to the corresponding `@eslint-react/*` rule names.
@@ -24,7 +25,7 @@ Shared ESLint configuration for SmartM2M projects.
 
 | Component                         | Supported range | Notes                                      |
 | --------------------------------- | --------------- | ------------------------------------------ |
-| Node.js                           | `>=22.13.0`     | Tested on Node.js 22, 24, and 25           |
+| Node.js                           | `>=22.13.0`     | Tested on Node.js 22, 24, and 26           |
 | ESLint / `@eslint/js`             | `>=10.0.1 <11`  | ESLint 10 Flat Config only                 |
 | TypeScript                        | `>=6.0.2 <6.1`  | TypeScript 7 awaits `typescript-eslint` support |
 | `typescript-eslint`               | `>=8.64 <9`     | Both minimum and latest peers are tested   |
@@ -32,7 +33,7 @@ Shared ESLint configuration for SmartM2M projects.
 | `@next/eslint-plugin-next`        | `>=16 <17`      | Optional; required only for the Next preset |
 | `eslint-plugin-jsx-a11y-x`        | `>=0.2 <1`      | ESLint 10-compatible accessibility fork    |
 
-CI tests the declared minimum dependency versions on Node.js 22.13 and the latest allowed dependency versions on Node.js 22, 24, and 25.
+CI tests the declared minimum dependency versions on Node.js 22.13 and the latest allowed dependency versions on Node.js 22, 24, and 26.
 
 ## Configuration structure
 
@@ -45,7 +46,7 @@ The package separates composed **presets** from domain-specific **rule modules**
 | `smartm2m-eslint-config`               | Default export; re-exports the React preset      |
 | `smartm2m-eslint-config/react`         | Complete configuration for React projects       |
 | `smartm2m-eslint-config/next`          | Complete configuration for Next.js projects     |
-| `smartm2m-eslint-config/presets/base`  | JS + import + Prettier, without React/TypeScript |
+| `smartm2m-eslint-config/presets/base`  | Node.js JS + import + Prettier, without React/TypeScript |
 | `smartm2m-eslint-config/presets/react` | React preset; equivalent to `/react`             |
 | `smartm2m-eslint-config/presets/next`  | Next.js preset; equivalent to `/next`            |
 | `smartm2m-eslint-config/presets/full`  | Full configuration; currently equivalent to Next.js |
@@ -182,7 +183,6 @@ export default [
     files: ["**/*.{js,jsx,ts,tsx}"],
     rules: {
       "no-console": "error",
-      "react-hooks/exhaustive-deps": "warn",
     },
   },
 ];
@@ -202,6 +202,28 @@ export default [
   },
 ];
 ```
+
+#### Legacy project Hook overrides
+
+Version 2.1.0 enables both `react-hooks/rules-of-hooks` and `react-hooks/exhaustive-deps` as errors. New projects should keep these defaults. A legacy project that needs a gradual migration can disable them only in its own config:
+
+```javascript
+import reactConfig from "smartm2m-eslint-config/react";
+
+export default [
+  ...reactConfig,
+  {
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    rules: {
+      // Temporary legacy exceptions; remove as affected areas are refactored.
+      "react-hooks/rules-of-hooks": "off",
+      "react-hooks/exhaustive-deps": "off",
+    },
+  },
+];
+```
+
+Keep the exception local to the legacy project. Re-enable `rules-of-hooks` first because it protects React's Hook call-order invariant, then restore `exhaustive-deps` as dependency handling is migrated.
 
 #### Enabling type-aware rules
 
@@ -320,8 +342,8 @@ export default [
 - Warning for array indices used as keys
 - Direct state mutation prevention and deprecated API warnings
 - Warning for unstable objects or arrays passed to Context providers (`@eslint-react/no-unstable-context-value`)
-- Hooks call order enforcement (`react-hooks/rules-of-hooks`, error)
-  - `react-hooks/exhaustive-deps` is **off by default** since v1.0.7 because of excessive false positives for stable values; consumers may opt in
+- Hooks call order and dependency enforcement (`react-hooks/rules-of-hooks`, `react-hooks/exhaustive-deps`, error)
+  - Legacy projects may use a project-local temporary override while existing Hooks are migrated
   - `@eslint-react/no-leaked-conditional-rendering` is **off by default**; consumers may opt in when needed
 
 ### TypeScript
@@ -355,7 +377,7 @@ export default [
 
 ### General JavaScript
 
-- Requires `===` instead of `==`
+- Requires `===` instead of `==`, except intentional nullish checks such as `value == null` and `value != null`
 - Disallows `eval`
 - Warns on `debugger` and `alert`
 - Warns on unused expressions
@@ -373,6 +395,7 @@ export default [
 - Recommends the Next.js `Image` component instead of plain `<img>`
 - Document Head rules
 - Next.js API typo detection
+- Rejects async Client Components
 - Google Fonts optimization checks (`display` and `preconnect`)
 - Requires an `id` on inline `<Script>` components
 - Recommends `next/script` for Google Analytics

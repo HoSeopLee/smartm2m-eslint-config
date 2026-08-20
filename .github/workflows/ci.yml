@@ -21,7 +21,7 @@ jobs:
             dependencies: latest
           - node: 24
             dependencies: latest
-          - node: 25
+          - node: 26
             dependencies: latest
 
     steps:

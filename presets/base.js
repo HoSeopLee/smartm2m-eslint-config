@@ -1,5 +1,5 @@
 import js from '@eslint/js';
-import { browserGlobals } from '../rules/base/globals.js';
+import { nodeGlobals } from '../rules/base/globals.js';
 import importConfig from '../rules/base/imports.js';
 import { generalRules } from '../rules/base/javascript.js';
 import prettierConfig from '../rules/formatting/prettier.js';
@@ -28,10 +28,9 @@ export default [
 		},
 		languageOptions: {
 			ecmaVersion: 'latest',
-			globals: browserGlobals,
+			globals: nodeGlobals,
 			parserOptions: { sourceType: 'module' },
 		},
-		settings: importConfig.settings,
 		rules: {
 			...importConfig.rules,
 			...prettierConfig.rules,

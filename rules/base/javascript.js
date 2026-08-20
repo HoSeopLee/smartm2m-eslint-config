@@ -39,8 +39,8 @@ export const generalRules = {
 	'no-debugger': 'warn',
 	// alert 경고 (warn)
 	'no-alert': 'warn',
-	// === 사용 강제 (error)
-	'eqeqeq': ['error', 'always'],
+	// === 사용 강제, null/undefined 동시 확인용 `value == null`은 허용 (error)
+	'eqeqeq': ['error', 'always', { null: 'ignore' }],
 	// eval 금지 (error)
 	'no-eval': 'error',
 	// var 금지, let/const (error)

@@ -37,6 +37,8 @@ export default {
 		'@next/next/no-duplicate-head': 'error',
 		// __webpack_require__ 등 모듈 변수 재할당 금지 (error)
 		'@next/next/no-assign-module-variable': 'error',
+		// Client Component를 async 함수로 선언 금지 (error)
+		'@next/next/no-async-client-component': 'error',
 		// Document 밖 beforeInteractive 스크립트 금지 (error)
 		'@next/next/no-before-interactive-script-outside-document': 'error',
 		// 페이지에서 Document import (off, 프로젝트별 설정)

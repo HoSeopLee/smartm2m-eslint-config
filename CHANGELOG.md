@@ -12,6 +12,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > - **1.0.5**: `jsx-no-leaked-render` 가 `ternary` 전략으로 autofix 되어 코드가 `{x ? <Y/> : null}` 로 강제 변환됨. 팀 코드 스타일과 상충되어 1.0.6 에서 해당 규칙을 off 처리. 1.0.7 이상 사용 권장.
 > - **1.0.6**: `react-hooks/exhaustive-deps` 를 `warn` 으로 유지하여 엄격한 hook dependency 검사가 가능한 유효한 선택지입니다. 다만 stable 값(queryClient, setter, 커스텀 훅 반환값)에 대한 false positive 경고가 자주 발생할 수 있어, 일반 프로젝트엔 1.0.7 사용을 권장합니다. **deprecated 아님.**
 
+## [2.1.0] - 2026-08-20
+
+### Changed
+
+- 신규 프로젝트의 기본 품질 기준을 위해 `react-hooks/exhaustive-deps`를 `off`에서 `error`로 변경
+  - 기존 Hook 패턴을 점진적으로 전환해야 하는 레거시 프로젝트는 자체 Flat Config에서 `react-hooks/rules-of-hooks`와 함께 로컬로 비활성화 가능
+- `eqeqeq`는 계속 엄격하게 적용하되 `value == null`, `value != null` 형태의 null/undefined 동시 검사는 허용
+- Next.js Client Component를 `async` 함수로 선언하지 못하도록 `@next/next/no-async-client-component`를 error로 추가
+- 최신 peer 조합 CI 대상을 Node.js 22/24/26으로 갱신
+
+### Fixed
+
+- `presets/base`의 `settings: undefined` 때문에 ESLint 10에서 Flat Config 로드가 실패하던 문제 수정
+- Node 스크립트용 base preset이 브라우저 globals 대신 Node.js globals를 사용하도록 수정
+
+### Added
+
+- Hook dependency, nullish 비교, async Client Component 및 base preset 실제 실행을 검증하는 회귀 테스트 추가
+
+### Docs
+
+- 영문·한글 README에 2.1.0 정책과 레거시 프로젝트용 로컬 Hook 예외 예제 추가
+
 ## [2.0.1] - 2026-08-18
 
 ### Fixed
